@@ -1,2 +1,0 @@
-# Microchip Technology USB2740 Hub
-ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="0424", ATTR{idProduct}=="2740", TEST=="power/control", ATTR{power/control}="auto"
