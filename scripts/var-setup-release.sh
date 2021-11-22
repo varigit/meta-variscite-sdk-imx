@@ -44,6 +44,9 @@ if [[ "$DISTRO" == *"fsl-imx"* ]]; then
     awk -i inplace '/meta-qt5/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-python2/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-gnome/&&c++>0 {next} 1' conf/bblayers.conf
+    # Remove apt package management
+    awk -i inplace '!/package-management/' conf/local.conf
+    awk -i inplace '!/package_deb/' conf/local.conf
 else
     MACHINE=${MACHINE} DISTRO=${DISTRO} . setup-environment ${BUILD_DIR}
 fi
