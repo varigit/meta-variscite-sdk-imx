@@ -40,6 +40,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-fsl-tools-benchmark \
 	packagegroup-fsl-gstreamer1.0 \
 	packagegroup-fsl-gstreamer1.0-full \
+	packagegroup-imx-isp \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xterm', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', 'weston-xwayland', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-init', \
