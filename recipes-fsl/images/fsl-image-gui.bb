@@ -13,6 +13,10 @@ inherit core-image features_check
 ###          to provide a way for users to reproduce the image used during
 ###          the validation process of i.MX BSP releases.
 
+# Add machine learning for certain SoCs
+ML_PKGS                   ?= ""
+ML_PKGS_mx8                = "${@bb.utils.contains('DISTRO', 'fslc-xwayland', 'packagegroup-fsl-ml', 'packagegroup-imx-ml', d)}"
+
 IMAGE_FEATURES += " \
     splash \
     package-management \
@@ -47,6 +51,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	openssh-sftp-server \
 	libgpiod \
 	libgpiod-tools \
+	${ML_PKGS} \
 "
 
 # only for Android enabled machines
