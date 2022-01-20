@@ -11,20 +11,20 @@ Before running this script you need to bitbake fsl-image-gui.
 
 
 Usage:
-sudo MACHINE=<var-som-mx6|imx6ul-var-dart|imx7-var-som> ./var-create-yocto-sdcard.sh [options] /dev/sdX
-(Change /dev/sdX to your device name)
+sudo MACHINE=<var-som-mx6|imx6ul-var-dart|imx7-var-som|imx8mq-var-dart|imx8mm-var-dart|imx8qxp-var-som|imx8qxpb0-var-som|imx8qm-var-som|imx8mn-var-som|imx8mp-var-dart> var-create-yocto-sdcard.sh <options> device_node
 
 options:
-  -h            Display help message
-  -s            Only show partition sizes to be written, without actually write them
-  -a            Automatically set the rootfs partition size to fill the SD card
-  -r            Select alternative rootfs for recovery images (default: build_x11/tmp/deploy/images/var-som-mx6/fsl-image-gui-var-som-mx6.*)
+  -h              Display help message
+  -s              Only Show partition sizes to be written, without actually writing them
+  -a              Automatically set the rootfs partition size to fill the SD card (leaving spare 4MiB)
+  -r ROOTFS_NAME  Select an alternative Rootfs for recovery images
+                  (default: "build_xwayland/tmp/deploy/images/<machine>/fsl-image-gui-<machine>")
+  -n TEXT_FILE    Add a release Notes text file
 
-If you don't use the '-a' option, a default rootfs size of 3700MiB will be used.
+If you don't use the '-a' option, a default rootfs size of 7400MiB will be used.
 The '-r' option allows you to create a bootable sdcard with an alternative image for the installation to NAND flash or eMMC.
 Example: "-r tmp/deploy/images/var-som-mx6/fsl-image-qt5-var-som-mx6" -- selects the "Qt5 image with X11" recovery image
 
 
-Once the script is done, use the SD card to boot, and then to flash your internal storage/s either use the icons,
-or the following linux shell script:
+Once the script is done, use the SD card to boot, and then to flash your internal storage by running:
 install_yocto.sh
