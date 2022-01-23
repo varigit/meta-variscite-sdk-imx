@@ -19,7 +19,6 @@ options:
   -a              Automatically set the rootfs partition size to fill the SD card (leaving spare 4MiB)
   -r ROOTFS_NAME  Select an alternative Rootfs for recovery images
                   (default: "build_xwayland/tmp/deploy/images/<machine>/fsl-image-gui-<machine>")
-  -n TEXT_FILE    Add a release Notes text file
 
 If you don't use the '-a' option, a default rootfs size of 7400MiB will be used.
 The '-r' option allows you to create a bootable sdcard with an alternative image for the installation to NAND flash or eMMC.
