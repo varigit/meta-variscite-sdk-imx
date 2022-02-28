@@ -23,7 +23,7 @@
 usage()
 {
     echo -e "\nUsage: MACHINE=<machine> DISTRO=<distro> source var-setup-release.sh <build-dir>
-    Optional parameters: [-b build-dir] [-h]"
+    Optional parameters: [-h]"
 }
 
 # Print the usage menu if invalid options are specified
