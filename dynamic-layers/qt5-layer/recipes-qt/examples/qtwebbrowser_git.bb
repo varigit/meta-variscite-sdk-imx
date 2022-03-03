@@ -12,13 +12,13 @@ QT_MODULE_BRANCH = "dev"
 SRCREV = "a09ec269e8b296d39d78b45ae251edb3d7bada41"
 
 DEPENDS = "qtbase qtdeclarative qtwebengine"
-RDEPENDS_${PN} = "qtvirtualkeyboard"
+RDEPENDS:${PN} = "qtvirtualkeyboard"
 
-do_install_append() {
+do_install:append() {
 	install -d ${D}${datadir}/${PN}
 	mv ${D}/data/user/qt/qtwebbrowser-app/* ${D}${datadir}/${PN}
 	rm -rf ${D}/data
 }
 
-FILES_${PN} += "${datadir}/${PN}"
-FILES_${PN}-dbg += "${datadir}/${PN}/.debug"
+FILES:${PN} += "${datadir}/${PN}"
+FILES:${PN}-dbg += "${datadir}/${PN}/.debug"

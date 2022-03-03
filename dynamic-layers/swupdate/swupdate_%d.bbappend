@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += "\
 	file://background.jpg \
@@ -8,7 +8,7 @@ SRC_URI += "\
 	file://swupdate.default \
 "
 
-do_install_append () {
+do_install:append () {
 	install -m 644 ${WORKDIR}/background.jpg ${D}/www/images/
 	install -m 644 ${WORKDIR}/favicon.png ${D}/www/images/
 	install -m 644 ${WORKDIR}/logo.png ${D}/www/images/

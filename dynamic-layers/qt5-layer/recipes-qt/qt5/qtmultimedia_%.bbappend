@@ -1,2 +1,2 @@
 # integrate Gtreamer optimizations
-PACKAGECONFIG_append = " gstreamer"
+PACKAGECONFIG:append = " gstreamer"

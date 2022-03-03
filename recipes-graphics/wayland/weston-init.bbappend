@@ -1,13 +1,13 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-RDEPENDS_${PN}_append = " adwaita-icon-theme adwaita-icon-theme-cursors"
+RDEPENDS:${PN}:append = " adwaita-icon-theme adwaita-icon-theme-cursors"
 
 # [Shell] is already uncommented by default in Variscite's weston.ini
-INI_UNCOMMENT_ASSIGNMENTS_remove_mx8mq = " \
+INI_UNCOMMENT_ASSIGNMENTS:remove:mx8mq = " \
     \\[shell\\] \
 "
 
-INI_UNCOMMENT_ASSIGNMENTS_append_mx6 = " \
+INI_UNCOMMENT_ASSIGNMENTS:append:mx6 = " \
     use-g2d=1 \
 "
 
@@ -21,7 +21,7 @@ update_file_weak() {
     fi
 }
 
-do_install_append() {
+do_install:append() {
     # meta-imx applies the following changes to weston.service
     # Community based releases (without meta-imx) also need these changes (See https://github.com/varigit/meta-variscite-fslc/commit/8535fb5b6e164476b651a3a5887144b26f9bea16)
     # For compatibiltiy with and without meta-imx, attempt to update weston.service here also and only print a warning when it fails.

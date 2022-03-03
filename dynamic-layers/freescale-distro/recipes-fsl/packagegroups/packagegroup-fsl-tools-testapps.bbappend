@@ -5,15 +5,15 @@ SOC_TOOLS_IMX_TESTAPPS = " \
 "
 
 SOC_TOOLS_TESTAPPS = ""
-SOC_TOOLS_TESTAPPS_imx = "${SOC_TOOLS_IMX_TESTAPPS}"
+SOC_TOOLS_TESTAPPS:imx = "${SOC_TOOLS_IMX_TESTAPPS}"
 
 # Overwrite the original setting in meta-freescale-distro layer
 # imx-test should be installed on all i.MX SoC
 SOC_TOOLS_TEST = ""
-SOC_TOOLS_TEST_imx = "imx-test"
-SOC_TOOLS_TEST_imxgpu  = "imx-test imx-gpu-viv-demos"
+SOC_TOOLS_TEST:imx = "imx-test"
+SOC_TOOLS_TEST:imxgpu  = "imx-test imx-gpu-viv-demos"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
 	${SOC_TOOLS_TESTAPPS} \
 	procps \
 	ptpd \

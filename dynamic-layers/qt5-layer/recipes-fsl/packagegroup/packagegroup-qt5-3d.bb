@@ -7,7 +7,7 @@ LICENSE = "MIT"
 
 inherit packagegroup
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     qt3d \
     qt3d-plugins \
     qt3d-qmlplugins \

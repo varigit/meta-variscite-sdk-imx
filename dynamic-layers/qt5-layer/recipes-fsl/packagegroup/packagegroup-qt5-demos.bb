@@ -6,7 +6,7 @@ LICENSE = "MIT"
 
 inherit packagegroup
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     qtsmarthome \
     qt5ledscreen \
     quitbattery \

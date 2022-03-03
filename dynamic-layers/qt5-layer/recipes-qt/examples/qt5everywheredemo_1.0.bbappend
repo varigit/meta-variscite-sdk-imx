@@ -1,5 +1,5 @@
 # add more runtime dependencies
-RDEPENDS_${PN}_append = " \
+RDEPENDS:${PN}:append = " \
 	qtmultimedia-plugins \
 	qtmultimedia-qmlplugins \
 	qtsvg-plugins \

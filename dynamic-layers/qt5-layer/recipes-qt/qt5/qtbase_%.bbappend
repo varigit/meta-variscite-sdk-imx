@@ -1,24 +1,24 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
-SRC_URI_append = " \
+SRC_URI:append = " \
 	file://0001-linuxfb-platform-plugin-add-rotation-support.patch \
 "
 
 BACKEND_FB = "linuxfb"
-BACKEND_FB_imxgpu3d = "eglfs"
+BACKEND_FB:imxgpu3d = "eglfs"
 BACKEND_WAYLAND = "wayland"
-BACKEND_WAYLAND_imxgpu3d = "wayland-egl"
+BACKEND_WAYLAND:imxgpu3d = "wayland-egl"
 BACKEND = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '${BACKEND_WAYLAND}', \
 	   bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', '${BACKEND_FB}', d), d)}"
-EGLFS_INTEGRATION_mx6 = "eglfs_viv"
-EGLFS_INTEGRATION_mx8 = "eglfs_kms"
+EGLFS_INTEGRATION:mx6 = "eglfs_viv"
+EGLFS_INTEGRATION:mx8 = "eglfs_kms"
 QML_USE_SWCTX = "yes"
-QML_USE_SWCTX_imxgpu3d = "no"
+QML_USE_SWCTX:imxgpu3d = "no"
 
 # build linuxfb backend if required
-PACKAGECONFIG_append = " fontconfig tslib ${@bb.utils.filter('BACKEND', 'linuxfb', d)}"
+PACKAGECONFIG:append = " fontconfig tslib ${@bb.utils.filter('BACKEND', 'linuxfb', d)}"
 
-do_install_append () {
+do_install:append () {
 	if ${@bb.utils.contains('DISTRO','b2qt','false','true',d)}; then
 		mkdir -p ${D}${sysconfdir}/profile.d
 		echo "export QT_QPA_PLATFORM=${BACKEND}" >> ${D}${sysconfdir}/profile.d/qt5.sh

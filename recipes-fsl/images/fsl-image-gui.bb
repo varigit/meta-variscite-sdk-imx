@@ -15,7 +15,7 @@ inherit core-image features_check
 
 # Add machine learning for certain SoCs
 ML_PKGS                   ?= ""
-ML_PKGS_mx8                = "${@bb.utils.contains('DISTRO', 'fslc-xwayland', 'packagegroup-fsl-ml', 'packagegroup-imx-ml', d)}"
+ML_PKGS:mx8                = "${@bb.utils.contains('DISTRO', 'fslc-xwayland', 'packagegroup-fsl-ml', 'packagegroup-imx-ml', d)}"
 
 IMAGE_FEATURES += " \
     splash \
@@ -56,18 +56,18 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 "
 
 # only for Android enabled machines
-IMAGE_INSTALL_append_imxgpu3d = " \
+IMAGE_INSTALL:append:imxgpu3d = " \
 	android-tools \
 	android-tools-adbd \
 	android-tools-fstools \
 "
 
 # only for DRM enabled machines
-IMAGE_INSTALL_append_imxdrm = " \
+IMAGE_INSTALL:append:imxdrm = " \
 	libdrm-tests \
 "
 
-CORE_IMAGE_EXTRA_INSTALL_append_mx8 = "\
+CORE_IMAGE_EXTRA_INSTALL:append:mx8 = "\
     packagegroup-fsl-tools-gpu \
 "
 
@@ -75,4 +75,4 @@ systemd_disable_vt () {
     rm ${IMAGE_ROOTFS}${sysconfdir}/systemd/system/getty.target.wants/getty@tty*.service
 }
 
-IMAGE_PREPROCESS_COMMAND_append = " ${@ 'systemd_disable_vt;' if bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d) and bb.utils.contains('USE_VT', '0', True, False, d) else ''} "
+IMAGE_PREPROCESS_COMMAND:append = " ${@ 'systemd_disable_vt;' if bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d) and bb.utils.contains('USE_VT', '0', True, False, d) else ''} "
