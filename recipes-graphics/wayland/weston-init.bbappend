@@ -11,6 +11,8 @@ INI_UNCOMMENT_ASSIGNMENTS:append:mx6 = " \
     use-g2d=1 \
 "
 
+WATCHDOG_SEC = "40"
+
 # same as update_file in meta-imx, but warn instead of error
 update_file_weak() {
     if ! grep -q "$1" $3; then
