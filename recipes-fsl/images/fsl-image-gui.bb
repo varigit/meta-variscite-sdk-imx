@@ -15,7 +15,7 @@ inherit core-image features_check
 
 # Add machine learning for certain SoCs
 ML_PKGS                   ?= ""
-ML_PKGS:mx8                = "${@bb.utils.contains('DISTRO', 'fslc-xwayland', 'packagegroup-fsl-ml', 'packagegroup-imx-ml', d)}"
+ML_PKGS:mx8                = "packagegroup-var-ml"
 
 IMAGE_FEATURES += " \
     splash \
