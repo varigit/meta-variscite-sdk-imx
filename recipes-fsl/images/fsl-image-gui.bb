@@ -7,7 +7,7 @@ demos and lots of applications. This creates a very large image, not \
 suitable for production."
 LICENSE = "MIT"
 
-inherit core-image features_check
+inherit core-image
 
 ### WARNING: This image is NOT suitable for production use and is intended
 ###          to provide a way for users to reproduce the image used during
