@@ -15,11 +15,11 @@ inherit core-image
 
 # Add machine learning for certain SoCs
 ML_PKGS                   ?= ""
-ML_PKGS:mx8                = "packagegroup-var-ml"
+ML_PKGS:mx8-nxp-bsp                = "packagegroup-var-ml"
 
 # Add security packages for i.MX8
 SEC_PKGS                   ?= ""
-SEC_PKGS:mx8                = "packagegroup-var-security"
+SEC_PKGS:mx8-nxp-bsp        = "packagegroup-var-security"
 
 IMAGE_FEATURES += " \
     splash \
@@ -72,7 +72,7 @@ IMAGE_INSTALL:append:imxdrm = " \
 	libdrm-tests \
 "
 
-CORE_IMAGE_EXTRA_INSTALL:append:mx8 = "\
+CORE_IMAGE_EXTRA_INSTALL:append:mx8-nxp-bsp = "\
     packagegroup-fsl-tools-gpu \
 "
 

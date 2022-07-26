@@ -10,8 +10,8 @@ BACKEND_WAYLAND = "wayland"
 BACKEND_WAYLAND:imxgpu3d = "wayland-egl"
 BACKEND = "${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '${BACKEND_WAYLAND}', \
 	   bb.utils.contains('DISTRO_FEATURES', 'x11', 'xcb', '${BACKEND_FB}', d), d)}"
-EGLFS_INTEGRATION:mx6 = "eglfs_viv"
-EGLFS_INTEGRATION:mx8 = "eglfs_kms"
+EGLFS_INTEGRATION:mx6-nxp-bsp = "eglfs_viv"
+EGLFS_INTEGRATION:mx8-nxp-bsp = "eglfs_kms"
 QML_USE_SWCTX = "yes"
 QML_USE_SWCTX:imxgpu3d = "no"
 
