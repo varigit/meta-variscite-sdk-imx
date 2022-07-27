@@ -17,10 +17,6 @@ ML_PKGS:append:mx8mq-nxp-bsp = " \
 ML_PKGS:append:mx8mp-nxp-bsp = " \
     deepview-rt \
     tvm \
-    eiq-apps \
-"
-ML_PKGS:append:mx8mm-nxp-bsp = " \
-    eiq-apps \
 "
 ML_EXTRA_PKGS ?= ""
 ML_EXTRA_PKGS:mx8-nxp-bsp = " \
