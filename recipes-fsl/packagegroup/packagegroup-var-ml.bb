@@ -4,8 +4,6 @@ inherit packagegroup
 
 ML_PKGS ?= ""
 ML_PKGS:mx8-nxp-bsp = " \
-    armnn \
-    armnn-swig \
     pytorch \
     tensorflow-lite \
     torchvision \
