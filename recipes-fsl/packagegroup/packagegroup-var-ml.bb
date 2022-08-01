@@ -1,5 +1,7 @@
 DESCRIPTION = "Add packages for AI/ML build"
 
+PACKAGE_ARCH = "${TUNE_PKGARCH}"
+
 inherit packagegroup
 
 ML_PKGS ?= ""
