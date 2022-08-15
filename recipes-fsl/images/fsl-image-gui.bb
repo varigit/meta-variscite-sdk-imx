@@ -52,6 +52,11 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	openssh-sftp-server \
 	libgpiod \
 	libgpiod-tools \
+	coreutils \
+	keyutils \
+	lvm2 \
+	e2fsprogs-mke2fs \
+	util-linux \
 	${ML_PKGS} \
 "
 
