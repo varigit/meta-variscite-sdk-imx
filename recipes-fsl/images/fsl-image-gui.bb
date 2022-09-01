@@ -17,6 +17,10 @@ inherit core-image
 ML_PKGS                   ?= ""
 ML_PKGS:mx8                = "packagegroup-var-ml"
 
+# Add security packages for i.MX8
+SEC_PKGS                   ?= ""
+SEC_PKGS:mx8                = "packagegroup-var-security"
+
 IMAGE_FEATURES += " \
     splash \
     package-management \
@@ -52,12 +56,8 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	openssh-sftp-server \
 	libgpiod \
 	libgpiod-tools \
-	coreutils \
-	keyutils \
-	lvm2 \
-	e2fsprogs-mke2fs \
-	util-linux \
 	${ML_PKGS} \
+	${SEC_PKGS} \
 "
 
 # only for Android enabled machines
