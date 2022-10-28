@@ -9,6 +9,9 @@ LICENSE = "MIT"
 
 inherit core-image
 
+# multiubi_mkfs:prepend() in variscite_ubi.inc pipes to 'bc'
+DEPENDS:append:mx6-nxp-bsp = " bc-native"
+
 ### WARNING: This image is NOT suitable for production use and is intended
 ###          to provide a way for users to reproduce the image used during
 ###          the validation process of i.MX BSP releases.
