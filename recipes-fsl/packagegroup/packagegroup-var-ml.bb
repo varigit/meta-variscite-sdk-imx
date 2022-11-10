@@ -19,6 +19,7 @@ ML_PKGS:append:mx8mp-nxp-bsp = " \
     deepview-rt \
     tvm \
 "
+ML_PKGS:remove:mx8mm-nxp-bsp = "tensorflow-lite-vx-delegate"
 ML_EXTRA_PKGS ?= ""
 ML_EXTRA_PKGS:mx8-nxp-bsp = " \
     python3-opencv \
