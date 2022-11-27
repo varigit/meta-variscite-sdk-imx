@@ -363,7 +363,7 @@ if [[ $SOC == i.MX6UL* ]] ; then
 		BOARD=som6ul
 	fi
 
-	if [[ -d /sys/bus/platform/devices/1806000.gpmi-nand ]] ; then
+	if [[ -d /sys/bus/platform/devices/1806000.nand-controller ]] ; then
 		STORAGE_DEV=nand
 	else
 		STORAGE_DEV=emmc
@@ -371,7 +371,7 @@ if [[ $SOC == i.MX6UL* ]] ; then
 elif [[ $SOC == i.MX7D ]] ; then
 	BOARD=mx7
 
-	if [[ -d /sys/bus/platform/devices/33002000.gpmi-nand ]] ; then
+	if [[ -d /sys/bus/platform/devices/33002000.nand-controller ]] ; then
 		STORAGE_DEV=nand
 	else
 		STORAGE_DEV=emmc
