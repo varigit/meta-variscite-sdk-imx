@@ -14,7 +14,11 @@ BOOTDIR=/boot
 
 check_board()
 {
-	if grep -q "i.MX8MM" /sys/devices/soc0/soc_id; then
+	if grep -q "i.MX93" /sys/devices/soc0/soc_id; then
+		BOARD=imx93-var-som
+		BLOCK=mmcblk0
+		BOOTLOADER_OFFSET=32
+	elif grep -q "i.MX8MM" /sys/devices/soc0/soc_id; then
 		BOARD=imx8mm-var-dart
 		DTB_PREFIX=imx8mm-var-dart
 		BLOCK=mmcblk2
