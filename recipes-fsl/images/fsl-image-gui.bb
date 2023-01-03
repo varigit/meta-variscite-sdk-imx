@@ -17,9 +17,8 @@ inherit core-image
 ML_PKGS                   ?= ""
 ML_PKGS:mx8-nxp-bsp                = "packagegroup-var-ml"
 
-# Add security packages for i.MX8
-SEC_PKGS                   ?= ""
-SEC_PKGS:mx8-nxp-bsp        = "packagegroup-var-security"
+# Add security packages
+SEC_PKGS                   = "packagegroup-var-security"
 
 IMAGE_FEATURES += " \
     splash \

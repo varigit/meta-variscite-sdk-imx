@@ -2,8 +2,7 @@ DESCRIPTION = "Add packages for security build"
 
 inherit packagegroup
 
-SEC_PKGS ?= ""
-SEC_PKGS:imx-nxp-bsp = " \
+SEC_PKGS = " \
     keyctl-caam \
 "
 RDEPENDS:${PN} = " \
