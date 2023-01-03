@@ -16,6 +16,7 @@ inherit core-image
 # Add machine learning for certain SoCs
 ML_PKGS                   ?= ""
 ML_PKGS:mx8-nxp-bsp                = "packagegroup-var-ml"
+ML_PKGS:mx9-nxp-bsp                = "packagegroup-var-ml"
 
 # Add docker packages for Variscite SoMs with eMMC
 DOCKER_PKGS			?= ""
