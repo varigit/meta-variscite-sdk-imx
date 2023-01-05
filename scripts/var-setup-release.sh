@@ -41,12 +41,12 @@ if [[ "$DISTRO" == *"fsl-imx"* ]]; then
     awk -i inplace '/meta-chromium/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-clang/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-networking/&&c++>0 {next} 1' conf/bblayers.conf
-    awk -i inplace '/meta-qt5/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-python2/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-gnome/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-virtualization/&&c++>0 {next} 1' conf/bblayers.conf
     # Remove fslc specific layers
     awk -i inplace '!/meta-freescale-ml/' conf/bblayers.conf
+    awk -i inplace '!/meta-qt5/' conf/bblayers.conf
     # Remove apt package management
     awk -i inplace '!/package-management/' conf/local.conf
     awk -i inplace '!/package_deb/' conf/local.conf
