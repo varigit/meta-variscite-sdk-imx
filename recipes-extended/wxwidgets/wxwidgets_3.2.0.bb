@@ -136,4 +136,4 @@ RDEPENDS:${PN}-dev += "grep"
 BBCLASSEXTEND = "native"
 
 # ignore QA Issue: non -dev/-dbg/nativesdk- package contains symlink .so
-INSANE_SKIP_${PN} = "dev-so"
+INSANE_SKIP:${PN} = "dev-so"
