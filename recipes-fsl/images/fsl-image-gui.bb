@@ -17,6 +17,11 @@ inherit core-image
 ML_PKGS                   ?= ""
 ML_PKGS:mx8-nxp-bsp                = "packagegroup-var-ml"
 
+# Add docker packages for Variscite SoMs with eMMC
+DOCKER_PKGS			?= ""
+DOCKER_PKGS:mx8-nxp-bsp		= "${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'docker-ce python3-docker-compose', '', d)}"
+DOCKER_PKGS:mx9-nxp-bsp		= "${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'docker-ce python3-docker-compose', '', d)}"
+
 # Add security packages
 SEC_PKGS                   = "packagegroup-var-security"
 
@@ -57,6 +62,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	libgpiod-tools \
 	${ML_PKGS} \
 	${SEC_PKGS} \
+	${DOCKER_PKGS} \
 "
 
 # only for Android enabled machines
