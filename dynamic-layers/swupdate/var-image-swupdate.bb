@@ -7,7 +7,8 @@ demos and lots of applications. This creates a very large image, not \
 suitable for production."
 LICENSE = "MIT"
 
-require recipes-fsl/images/fsl-image-gui.bb
+SWUPDATE_BASE_IMAGE = "${@bb.utils.contains('DISTRO', 'b2qt', 'recipes-qt/images/b2qt-embedded-qt6-image.bb', 'recipes-fsl/images/fsl-image-gui.bb', d)}"
+require ${SWUPDATE_BASE_IMAGE}
 
 ### WARNING: This image is NOT suitable for production use and is intended
 ###          to provide a way for users to reproduce the image used during
@@ -20,4 +21,5 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	kernel-devicetree \
 "
 
+QBSP_IMAGE_CONTENT = ""
 IMAGE_FSTYPES = "tar.gz"
