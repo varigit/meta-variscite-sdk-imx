@@ -71,6 +71,7 @@ IMAGE_INSTALL:append:imxgpu3d = " \
 	android-tools \
 	android-tools-adbd \
 	android-tools-fstools \
+	f2fs-tools \
 "
 
 # only for DRM enabled machines
