@@ -25,6 +25,8 @@ else
 		readonly YOCTO_BUILD=${YOCTO_ROOT}/build_xwayland
 	elif [[ -d "${YOCTO_ROOT}/build_wayland" ]]; then
 		readonly YOCTO_BUILD=${YOCTO_ROOT}/build_wayland
+	elif [[ -d "${YOCTO_ROOT}/build-${MACHINE}" ]]; then
+		readonly YOCTO_BUILD=${YOCTO_ROOT}/build-${MACHINE}
 	else
 		echo "Unable to find directory to set YOCTO_BUILD to, exiting"
 		exit 1
