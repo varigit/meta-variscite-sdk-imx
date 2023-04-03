@@ -13,6 +13,11 @@ readonly SCRIPT_POINT=${ABSOLUTE_DIRECTORY}
 
 readonly YOCTO_ROOT="${SCRIPT_POINT}/../../../.."
 
+# Verify MACHINE environment variable is set
+if [[ -z "${MACHINE}" ]]; then
+	MACHINE='${MACHINE}'
+fi
+
 if [[ -e ${YOCTO_ROOT}/sources/meta-boot2qt ]] ; then
 	readonly BSP_TYPE="B2QT"
 	readonly YOCTO_BUILD=${YOCTO_ROOT}/build-${MACHINE}
@@ -115,7 +120,7 @@ help() {
 	echo " -s		only Show partition sizes to be written, without actually write them"
 	echo " -a		Automatically set the rootfs partition size to fill the SD card (leaving spare ${SPARE_SIZE}MiB)"
 	echo " -r ROOTFS_NAME	select an alternative Rootfs for recovery images"
-	echo " 		(default: \"${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_DEFAULT_IMAGE}-\${MACHINE}\")"
+	echo " 		(default: \"${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_DEFAULT_IMAGE}-${MACHINE}\")"
 	echo
 }
 
