@@ -104,6 +104,11 @@ function check_device()
 	echo "Detected removable device $1, size=${size_gb}GB"
 }
 
+# Default SD card image
+YOCTO_DEFAULT_IMAGE_PATH=${YOCTO_IMGS_PATH}
+YOCTO_DEFAULT_IMAGE_BASE_IN_NAME=${YOCTO_DEFAULT_IMAGE}-${MACHINE}
+
+# Default eMMC image
 YOCTO_RECOVERY_ROOTFS_PATH=${YOCTO_IMGS_PATH}
 YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME=${YOCTO_DEFAULT_IMAGE}-${MACHINE}
 
@@ -116,11 +121,18 @@ help() {
 	echo " Usage: MACHINE=<var-som-mx6|imx6ul-var-dart|imx7-var-som|imx8mq-var-dart|imx8mm-var-dart|imx8qxp-var-som|imx8qxpb0-var-som|imx8qm-var-som|imx8mn-var-som|imx8mp-var-dart|imx93-var-som> $bn <options> device_node"
 	echo
 	echo " options:"
-	echo " -h		display this Help message"
-	echo " -s		only Show partition sizes to be written, without actually write them"
-	echo " -a		Automatically set the rootfs partition size to fill the SD card (leaving spare ${SPARE_SIZE}MiB)"
-	echo " -r ROOTFS_NAME	select an alternative Rootfs for recovery images"
-	echo " 		(default: \"${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_DEFAULT_IMAGE}-${MACHINE}\")"
+	echo " -h                display this Help message"
+	echo " -s                only Show partition sizes to be written, without actually write them"
+	echo " -a                Automatically set the rootfs partition size to fill the SD card (leaving spare ${SPARE_SIZE}MiB)"
+	echo " -d DEFAULT_IMAGE  select an alternative Rootfs for the SD card"
+	echo "                    - Default: \"${YOCTO_DEFAULT_IMAGE_PATH}/${YOCTO_DEFAULT_IMAGE}-${MACHINE}\""
+	echo "                    - WARNING: DEFAULT_IMAGE must include all dependencies for install_yocto.sh"
+	echo "                               It is recommended to use the default value, fsl-image-gui, which"
+	echo "                               is tested by Variscite"
+	echo " -r ROOTFS_NAME    select an alternative Rootfs for recovery images"
+	echo "                    - Default: If unset, the value of DEFAULT_IMAGE is used."
+	echo "                    - ${ROOTFS_NAME}.tar.gz is added to SDCARD_IMAGE/opt/images/Yocto/rootfs.tar.gz"
+	echo "                      and can be installed to eMMC using install_yocto.sh"
 	echo
 }
 
@@ -209,6 +221,17 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 		-h) help; exit 3 ;;
 		-s) cal_only=1 ;;
 		-a) AUTO_FILL_SD=1 ;;
+		-d) shift;
+			YOCTO_DEFAULT_IMAGE_MASK_PATH=`readlink -e "${1}.tar.gz"` || handle_file_missing "${1}.tar.gz";
+			YOCTO_DEFAULT_IMAGE_PATH=`dirname ${YOCTO_DEFAULT_IMAGE_MASK_PATH}`
+			YOCTO_DEFAULT_IMAGE_BASE_IN_NAME=`basename ${1}`
+			# If YOCTO_RECOVERY_ROOTFS_MASK_PATH unset, copy the
+			# default image path and name to recovery image path and name
+			if [[ -z "${YOCTO_RECOVERY_ROOTFS_MASK_PATH}" ]]; then
+				YOCTO_RECOVERY_ROOTFS_PATH=${YOCTO_DEFAULT_IMAGE_PATH}
+				YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME=${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}
+			fi
+		;;
 		-r) shift;
 			YOCTO_RECOVERY_ROOTFS_MASK_PATH=`readlink -e "${1}.tar.gz"` || handle_file_missing "${1}.tar.gz";
 			YOCTO_RECOVERY_ROOTFS_PATH=`dirname ${YOCTO_RECOVERY_ROOTFS_MASK_PATH}`
@@ -226,7 +249,7 @@ fi
 
 # allow only removable/loopback devices, to protect host PC
 echo "MACHINE=${MACHINE}"
-echo "SD card rootfs:  ${YOCTO_DEFAULT_IMAGE}-${MACHINE}"
+echo "SD card rootfs:  ${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}"
 echo "Recovery rootfs: ${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}"
 echo "================================================"
 check_device $node
@@ -378,7 +401,7 @@ function install_yocto
 
 	echo
 	echo "Installing Yocto Root File System"
-	pv ${YOCTO_IMGS_PATH}/${YOCTO_DEFAULT_IMAGE}-${MACHINE}.tar.gz | tar -xz -C ${P2_MOUNT_DIR}/
+	pv ${YOCTO_DEFAULT_IMAGE_PATH}/${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}.tar.gz | tar -xz -C ${P2_MOUNT_DIR}/
 	sync
 }
 
