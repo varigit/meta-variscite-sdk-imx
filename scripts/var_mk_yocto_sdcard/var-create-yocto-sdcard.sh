@@ -124,6 +124,13 @@ help() {
 	echo
 }
 
+function handle_file_missing()
+{
+	echo "Error: \"${1}\" not found"
+	help
+	exit 1
+}
+
 if [[ $EUID -ne 0 ]] ; then
 	echo "This script must be run with super-user privileges"
 	exit 1
@@ -203,7 +210,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 		-s) cal_only=1 ;;
 		-a) AUTO_FILL_SD=1 ;;
 		-r) shift;
-			YOCTO_RECOVERY_ROOTFS_MASK_PATH=`readlink -e "${1}.tar.gz"`;
+			YOCTO_RECOVERY_ROOTFS_MASK_PATH=`readlink -e "${1}.tar.gz"` || handle_file_missing "${1}.tar.gz";
 			YOCTO_RECOVERY_ROOTFS_PATH=`dirname ${YOCTO_RECOVERY_ROOTFS_MASK_PATH}`
 			YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME=`basename ${1}`
 		;;
