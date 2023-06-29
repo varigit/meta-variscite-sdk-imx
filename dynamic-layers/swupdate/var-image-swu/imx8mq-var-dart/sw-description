@@ -7,7 +7,7 @@ software =
 
 		files: (
 			{
-				filename = "var-image-swupdate-imx8mq-var-dart.tar.gz";
+				filename = "@@VAR_SWUPDATE_TARGET_IMAGE_FILE@@";
 				type = "archive";
 				compressed = true;
 				device = "/dev/update";
