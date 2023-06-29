@@ -11,7 +11,7 @@ IMX_BACKEND = \
                                                              '${IMX_BACKEND_FB}', d), d)}"
 
 SRC_URI:append = " \
-    file://qt6-${IMX_BACKEND}.sh \
+    file://qt-${IMX_BACKEND}.sh \
 "
 
-FILES:${PN} += "${sysconfdir}/profile.d/qt6.sh"
+FILES:${PN} += "${sysconfdir}/profile.d/qt.sh"
