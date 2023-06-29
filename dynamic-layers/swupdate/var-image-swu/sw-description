@@ -9,7 +9,7 @@ software =
 			{
 				filename = "@@VAR_SWUPDATE_TARGET_IMAGE_FILE@@";
 				type = "archive";
-				compressed = true;
+				compressed = "zstd";
 				device = "/dev/update";
 				filesystem = "ext4";
 				preserve-attributes = true;

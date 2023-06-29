@@ -81,6 +81,7 @@ CONFIG_MONGOOSESSL=y
 # Archival Features
 #
 CONFIG_GUNZIP=y
+CONFIG_ZSTD=y
 
 #
 # Parser Features

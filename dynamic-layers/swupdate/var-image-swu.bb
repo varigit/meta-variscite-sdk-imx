@@ -15,7 +15,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 # VAR_SWUPDATE_TARGET_IMAGE: Set to primary image packaged in .swu file
 VAR_SWUPDATE_TARGET_IMAGE = "var-image-swupdate"
 # VAR_SWUPDATE_TARGET_IMAGE_FSTYPE: Set to primary image format/extension (i.e. .tar.gz, .tar.zst, etc.)
-VAR_SWUPDATE_TARGET_IMAGE_FSTYPE = ".tar.gz"
+VAR_SWUPDATE_TARGET_IMAGE_FSTYPE = ".tar.zst"
 
 # VAR_SWUPDATE_TARGET_IMAGE_FILE: Expression to resolve packaged filename based
 # on how swupdate packages images in order to update sw-description file
