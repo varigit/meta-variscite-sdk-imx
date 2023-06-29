@@ -14,4 +14,6 @@ SRC_URI:append = " \
     file://qt-${IMX_BACKEND}.sh \
 "
 
+PACKAGECONFIG += "examples"
+
 FILES:${PN} += "${sysconfdir}/profile.d/qt.sh"

@@ -1,5 +1,9 @@
 QT6_IMAGE_INSTALL_COMMON:remove = "${QT6_IMAGE_INSTALL_QUICK3D}"
 
+QT6_IMAGE_INSTALL_COMMON:append = " \
+    qtbase-examples \
+"
+
 QT6_IMAGE_INSTALL:imxpxp = " \
     ${QT6_IMAGE_INSTALL_COMMON} \
 "
