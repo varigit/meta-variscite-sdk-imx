@@ -2,7 +2,7 @@ software =
 {
 	version = "0.1.0";
 
-	imx8mq-var-dart = {
+	@@MACHINE@@ = {
 		hardware-compatibility: [ "1.0" ];
 
 		files: (
