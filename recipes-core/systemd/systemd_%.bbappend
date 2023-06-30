@@ -1,3 +1,2 @@
 # Remove networkd package
-PACKAGECONFIG:remove = "networkd"
-
+PACKAGECONFIG:remove:var-som = "networkd"
