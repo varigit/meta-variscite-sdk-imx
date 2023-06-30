@@ -13,6 +13,12 @@ readonly SCRIPT_POINT=${ABSOLUTE_DIRECTORY}
 
 readonly YOCTO_ROOT="${SCRIPT_POINT}/../../../.."
 
+readonly TARBALL_BASENAME="rootfs"
+
+# Support zst format
+readonly TARBALL_FMT="tar.zst"
+readonly TAR_FLAGS="--zstd -xf"
+
 # Verify MACHINE environment variable is set
 if [[ -z "${MACHINE}" ]]; then
 	MACHINE='${MACHINE}'
@@ -131,7 +137,7 @@ help() {
 	echo "                               is tested by Variscite"
 	echo " -r ROOTFS_NAME    select an alternative Rootfs for recovery images"
 	echo "                    - Default: If unset, the value of DEFAULT_IMAGE is used."
-	echo "                    - ${ROOTFS_NAME}.tar.gz is added to SDCARD_IMAGE/opt/images/Yocto/rootfs.tar.gz"
+	echo "                    - <ROOTFS_NAME>.${TARBALL_FMT} is added to SDCARD_IMAGE/opt/images/Yocto/${TARBALL_BASENAME}.${TARBALL_FMT}"
 	echo "                      and can be installed to eMMC using install_yocto.sh"
 	echo
 }
@@ -222,7 +228,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 		-s) cal_only=1 ;;
 		-a) AUTO_FILL_SD=1 ;;
 		-d) shift;
-			YOCTO_DEFAULT_IMAGE_MASK_PATH=`readlink -e "${1}.tar.gz"` || handle_file_missing "${1}.tar.gz";
+			YOCTO_DEFAULT_IMAGE_MASK_PATH=`readlink -e "${1}.${TARBALL_FMT}"` || handle_file_missing "${1}.${TARBALL_FMT}";
 			YOCTO_DEFAULT_IMAGE_PATH=`dirname ${YOCTO_DEFAULT_IMAGE_MASK_PATH}`
 			YOCTO_DEFAULT_IMAGE_BASE_IN_NAME=`basename ${1}`
 			# If YOCTO_RECOVERY_ROOTFS_MASK_PATH unset, copy the
@@ -233,7 +239,7 @@ while [ "$moreoptions" = 1 -a $# -gt 0 ]; do
 			fi
 		;;
 		-r) shift;
-			YOCTO_RECOVERY_ROOTFS_MASK_PATH=`readlink -e "${1}.tar.gz"` || handle_file_missing "${1}.tar.gz";
+			YOCTO_RECOVERY_ROOTFS_MASK_PATH=`readlink -e "${1}.${TARBALL_FMT}"` || handle_file_missing "${1}.${TARBALL_FMT}";
 			YOCTO_RECOVERY_ROOTFS_PATH=`dirname ${YOCTO_RECOVERY_ROOTFS_MASK_PATH}`
 			YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME=`basename ${1}`
 		;;
@@ -401,7 +407,7 @@ function install_yocto
 
 	echo
 	echo "Installing Yocto Root File System"
-	pv ${YOCTO_DEFAULT_IMAGE_PATH}/${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}.tar.gz | tar -xz -C ${P2_MOUNT_DIR}/
+	pv ${YOCTO_DEFAULT_IMAGE_PATH}/${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}.${TARBALL_FMT} | tar ${TAR_FLAGS} - -C ${P2_MOUNT_DIR}/
 	sync
 }
 
@@ -440,10 +446,10 @@ function copy_images
 	fi
 
 	# Copy image for eMMC
-	if [ -f ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.tar.gz ]; then
-		pv ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.tar.gz > ${P2_MOUNT_DIR}/opt/images/Yocto/rootfs.tar.gz
+	if [ -f ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.${TARBALL_FMT} ]; then
+		pv ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.${TARBALL_FMT} > ${P2_MOUNT_DIR}/opt/images/Yocto/${TARBALL_BASENAME}.${TARBALL_FMT}
 	else
-		echo "rootfs.tar.gz file is not present. Installation on \"eMMC\" will not be supported."
+		echo "${TARBALL_BASENAME}.${TARBALL_FMT} file is not present. Installation on \"eMMC\" will not be supported."
 	fi
 
 	if [ ${HAS_UBI_IMAGES} = 1 ]; then
@@ -500,7 +506,7 @@ function copy_scripts
 			cp ${YOCTO_SCRIPTS_PATH}/${MACHINE}*.desktop	${P2_MOUNT_DIR}/usr/share/applications/
 
 			# Remove inactive icons
-			if [ ! -f ${P2_MOUNT_DIR}/opt/images/Yocto/rootfs.tar.gz ]; then
+			if [ ! -f ${P2_MOUNT_DIR}/opt/images/Yocto/${TARBALL_BASENAME}.${TARBALL_FMT} ]; then
 				rm -rf ${P2_MOUNT_DIR}/usr/share/applications/${MACHINE}*yocto*emmc*.desktop
 			fi
 

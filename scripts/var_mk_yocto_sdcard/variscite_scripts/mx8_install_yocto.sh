@@ -2,10 +2,12 @@
 
 . /usr/bin/echos.sh
 
+readonly TARBALL_BASENAME="rootfs"
+readonly TARBALL_FMT="tar.zst"
 IMGS_PATH=/opt/images/Yocto
 UBOOT_IMAGE=imx-boot-sd.bin
 UBOOT_IMAGE_MX8MQ_DP=imx-boot-imx8mq-var-dart-sd.bin-flash_dp_evk
-ROOTFS_IMAGE=rootfs.tar.gz
+ROOTFS_IMAGE=${TARBALL_BASENAME}.${TARBALL_FMT}
 BOOTLOADER_RESERVED_SIZE=8
 DISPLAY=lvds
 PART=p

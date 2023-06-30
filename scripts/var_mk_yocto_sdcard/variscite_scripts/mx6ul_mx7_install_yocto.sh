@@ -5,6 +5,8 @@ set -e
 
 . /usr/bin/echos.sh
 
+readonly TARBALL_BASENAME="rootfs"
+readonly TARBALL_FMT="tar.zst"
 IMGS_PATH=/opt/images/Yocto
 KERNEL_IMAGE=zImage
 KERNEL_DTB=""
@@ -429,7 +431,7 @@ if [[ $STORAGE_DEV == "nand" ]] ; then
 	fi
 elif [[ $STORAGE_DEV == "emmc" ]] ; then
 	STR="eMMC"
-	ROOTFS_IMAGE=rootfs.tar.gz
+	ROOTFS_IMAGE=${TARBALL_BASENAME}.${TARBALL_FMT}
 else
 	usage
 	exit 1
