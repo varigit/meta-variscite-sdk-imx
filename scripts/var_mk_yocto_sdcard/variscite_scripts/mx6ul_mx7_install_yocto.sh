@@ -243,7 +243,7 @@ format_emmc_parts()
 install_bootloader_to_emmc()
 {
 	echo
-	blue_underlined_bold_echo "Installing booloader"
+	blue_underlined_bold_echo "Installing bootloader"
 
 	dd if=${IMGS_PATH}/${SPL_IMAGE} of=${node} bs=1K seek=1; sync
 	dd if=${IMGS_PATH}/${UBOOT_IMAGE} of=${node} bs=1K seek=69; sync
