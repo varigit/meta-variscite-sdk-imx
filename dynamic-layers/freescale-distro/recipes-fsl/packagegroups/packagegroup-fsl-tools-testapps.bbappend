@@ -23,7 +23,7 @@ RDEPENDS:${PN} += " \
 	can-utils \
 	cpufrequtils \
 	nano \
-	ntpdate \
+	ntp \
 	minicom \
 	coreutils \
 	mmc-utils \
