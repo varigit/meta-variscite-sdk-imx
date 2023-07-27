@@ -53,9 +53,9 @@ if [ $1 == "postinst" ]; then
 	get_current_root_device
 
 	# Adjust u-boot-fw-utils for eMMC on the installed rootfs
-	mount -t ext4 /dev/update /tmp/datadst
+	mount -t ext4 /dev/update ${TMPDIR}/datadst
 	CURRENT_BLK_DEV=${CURRENT_ROOT%p?}
-	sed -i "s/\/dev\/mmcblk./${CURRENT_BLK_DEV//\//\\/}/" /tmp/datadst/etc/fw_env.config
+	sed -i "s/\/dev\/mmcblk./${CURRENT_BLK_DEV//\//\\/}/" ${TMPDIR}/datadst/etc/fw_env.config
 	umount /dev/update
 
 	get_update_part

@@ -1,1 +1,2 @@
 hardware="imx8mq-var-dart"
+TMPDIR=/tmp
