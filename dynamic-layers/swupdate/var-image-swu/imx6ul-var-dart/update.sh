@@ -54,12 +54,12 @@ if [ $1 == "postinst" ]; then
 
 	if [ ! -d "/sys/kernel/debug/gpmi-nand" ]; then
 		# Adjust u-boot-fw-utils for eMMC on the installed rootfs
-		mount -t ext4 /dev/update /tmp/datadst
+		mount -t ext4 /dev/update ${TMPDIR}/datadst
 		rm /etc/u-boot-initial-env-*nand*
 		ln -sf u-boot-initial-env-sd /etc/u-boot-initial-env
-		sed -i "/mtd/ s/^#*/#/" /tmp/datadst/etc/fw_env.config
+		sed -i "/mtd/ s/^#*/#/" ${TMPDIR}/datadst/etc/fw_env.config
 		CURRENT_BLK_DEV=${CURRENT_ROOT%p?}
-		sed -i "s/#*\/dev\/mmcblk./${CURRENT_BLK_DEV//\//\\/}/" /tmp/datadst/etc/fw_env.config
+		sed -i "s/#*\/dev\/mmcblk./${CURRENT_BLK_DEV//\//\\/}/" ${TMPDIR}/datadst/etc/fw_env.config
 		umount /dev/update
 	fi
 

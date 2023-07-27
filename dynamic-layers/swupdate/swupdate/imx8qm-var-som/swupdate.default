@@ -1,1 +1,2 @@
 hardware="imx8qm-var-som"
+TMPDIR=/tmp

@@ -1,1 +1,2 @@
 hardware="imx7-var-som"
+TMPDIR=/tmp
