@@ -27,6 +27,7 @@ ML_EXTRA_PKGS:mx8-nxp-bsp = " \
     python3-opencv \
     python3-pip \
     python3-requests \
+    python3-sympy \
 "
 
 # MX9
