@@ -4,7 +4,7 @@ LICENSE = "MIT"
 
 require recipes-fsl/images/fsl-image-gui.bb
 
-IMAGE_INSTALL:append = "chromium-ozone-wayland"
+IMAGE_INSTALL:append = " chromium-ozone-wayland"
 
 ROOTFS_POSTPROCESS_COMMAND:append = "install_chromium; "
 
