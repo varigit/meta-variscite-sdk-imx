@@ -30,4 +30,4 @@ VAR_RECOVERY_IMAGE_RENAME[imx-boot] = "imx-boot-sd.bin"
 # Use the var-recovery bbclass
 inherit var-recovery
 
-COMPATIBLE_MACHINE = "(mx9-nxp-bsp)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp|mx9-nxp-bsp)"
