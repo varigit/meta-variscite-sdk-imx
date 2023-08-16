@@ -21,11 +21,11 @@ VAR_RECOVERY_DEPENDS = "\
 "
 
 # Package the imx-boot generated file in the SD image
-VAR_RECOVERY_IMAGES:mx9-nxp-bsp = "\
-    imx-boot-imx93-var-som-sd.bin-flash_singleboot \
+VAR_RECOVERY_IMAGES = "\
+    imx-boot \
 "
 # The file must then be renamed to follow the install_yocto.sh standard name.
-VAR_RECOVERY_IMAGE_RENAME[imx-boot-imx93-var-som-sd.bin-flash_singleboot] = "imx-boot-sd.bin"
+VAR_RECOVERY_IMAGE_RENAME[imx-boot] = "imx-boot-sd.bin"
 
 # Use the var-recovery bbclass
 inherit var-recovery
