@@ -155,29 +155,15 @@ if [[ $EUID -ne 0 ]] ; then
 fi
 
 case $MACHINE in
-	"imx8mm-var-dart")
-		IMXBOOT_TARGET=flash_lpddr4_ddr4_evk
-		;;
-	"imx8mn-var-som")
-		IMXBOOT_TARGET=flash_ddr4_evk
-		;;
-	"imx8mq-var-dart")
-		IMXBOOT_TARGET=flash_evk
-		;;
-	"imx8mp-var-dart")
-		IMXBOOT_TARGET=flash_evk
-		;;
-	"imx8qm-var-som")
-		IMXBOOT_TARGET=flash_spl
-		;;
-	"imx8qxp-var-som")
-		IMXBOOT_TARGET=flash_spl
-		;;
-	"imx8qxpb0-var-som")
-		IMXBOOT_TARGET=flash_spl
-		;;
+	"imx8mm-var-dart" | \
+	"imx8mn-var-som" | \
+	"imx8mq-var-dart" | \
+	"imx8mp-var-dart" | \
+	"imx8qm-var-som" | \
+	"imx8qxp-var-som" | \
+	"imx8qxpb0-var-som" | \
 	"imx93-var-som")
-		IMXBOOT_TARGET=flash_singleboot
+		IMXBOOT_TARGET=imx-boot
 		;;
 	"imx6ul-var-dart")
 		FAT_VOLNAME=BOOT-VAR6UL
@@ -361,7 +347,7 @@ function install_bootloader
 	echo
 	echo "Installing U-Boot"
 	if [ ${BOOT_ROM_SIZE} = 0 ]; then
-		dd if=${YOCTO_IMGS_PATH}/imx-boot-${MACHINE}-sd.bin-${IMXBOOT_TARGET} of=${node} bs=1K seek=${BOOTLOADER_OFFSET}; sync
+		dd if=${YOCTO_IMGS_PATH}/${IMXBOOT_TARGET} of=${node} bs=1K seek=${BOOTLOADER_OFFSET}; sync
 	else
 		dd if=${YOCTO_IMGS_PATH}/SPL-sd of=${node} bs=1K seek=1; sync
 		dd if=${YOCTO_IMGS_PATH}/u-boot.img-sd of=${node} bs=1K seek=69; sync
@@ -473,7 +459,7 @@ function copy_images
 			cp ${YOCTO_RECOVERY_ROOTFS_PATH}/imx-boot-${MACHINE}-sd.bin-* ${P2_MOUNT_DIR}/opt/images/Yocto
 			(cd ${P2_MOUNT_DIR}/opt/images/Yocto; ln -fs imx-boot-${MACHINE}-sd.bin-flash_evk imx-boot-sd.bin)
 		else
-			cp ${YOCTO_RECOVERY_ROOTFS_PATH}/imx-boot-${MACHINE}-sd.bin-${IMXBOOT_TARGET} ${P2_MOUNT_DIR}/opt/images/Yocto/imx-boot-sd.bin
+			cp ${YOCTO_RECOVERY_ROOTFS_PATH}/${IMXBOOT_TARGET} ${P2_MOUNT_DIR}/opt/images/Yocto/imx-boot-sd.bin
 		fi
 	else
 		cp ${YOCTO_RECOVERY_ROOTFS_PATH}/SPL-nand		${P2_MOUNT_DIR}/opt/images/Yocto/
