@@ -33,4 +33,5 @@ RDEPENDS:${PN} += " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'tk', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-examples', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wifi', 'hostapd', '', d)} \
+	var-mii \
 "
