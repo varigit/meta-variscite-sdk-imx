@@ -49,7 +49,6 @@ if [[ "$DISTRO" == *"fsl-imx"* ]]; then
     awk -i inplace '!/meta-qt5/' conf/bblayers.conf
     # Remove apt package management
     awk -i inplace '!/package-management/' conf/local.conf
-    awk -i inplace '!/package_deb/' conf/local.conf
 else
     MACHINE=${MACHINE} DISTRO=${DISTRO} . setup-environment ${BUILD_DIR}
 fi
