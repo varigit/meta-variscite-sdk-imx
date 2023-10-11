@@ -8,7 +8,7 @@ REQUIRED_DISTRO_FEATURES += "virtualization"
 IMAGE_FEATURES += "splash ssh-server-dropbear"
 
 IMAGE_INSTALL += " \
-    docker-ce \
+    docker-moby \
     python3-docker-compose \
     packagegroup-basic \
     packagegroup-core-full-cmdline \
