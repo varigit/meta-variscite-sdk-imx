@@ -37,7 +37,7 @@ sed -i "s/\['.gz', '.bz2', '.Z', '.xz', '.lz'\]/\['.gz', '.bz2', '.Z', '.xz', '.
 BUILD_DIR="$1"
 
 # Determine if FSLC or NXP distro
-if [[ "$DISTRO" == *"fsl-imx"* ]]; then
+if [[ "$DISTRO" == *"fsl-imx"* ]] || [[ "$DISTRO" == *"var-debian-xwayland"* ]]; then
     MACHINE=${MACHINE} DISTRO=${DISTRO} . imx-setup-release.sh -b ${BUILD_DIR}
     # Remove duplicate BBLAYERS entries
     awk -i inplace '/meta-filesystems/&&c++>0 {next} 1' conf/bblayers.conf
