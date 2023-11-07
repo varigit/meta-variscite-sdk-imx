@@ -4,37 +4,38 @@ if [ $# -lt 1 ]; then
 	exit 0;
 fi
 
-function get_current_root_device
+get_current_root_device()
 {
-	for i in `cat /proc/cmdline`; do
-		if [ ${i:0:5} = "root=" ]; then
-			CURRENT_ROOT="${i:5}"
+	for i in $(cat /proc/cmdline); do
+		if [ "$(echo $i | cut -c1-5)" = "root=" ]; then
+			CURRENT_ROOT="$(echo $i | cut -c6-)"
 		fi
 	done
 }
 
-function get_update_part
+get_update_part()
 {
-	CURRENT_PART="${CURRENT_ROOT: -1}"
-	if [ $CURRENT_PART = "1" ]; then
+	CURRENT_PART="$(echo ${CURRENT_ROOT} | sed 's/.*p//')"
+
+	if [ "${CURRENT_PART}" = "1" ]; then
 		UPDATE_PART="2";
 	else
 		UPDATE_PART="1";
 	fi
 }
 
-function get_update_device
+get_update_device()
 {
-	UPDATE_ROOT=${CURRENT_ROOT%?}${UPDATE_PART}
+	UPDATE_ROOT="${CURRENT_ROOT%?}${UPDATE_PART}"
 }
 
-function format_update_device
+format_update_device()
 {
 	umount $UPDATE_ROOT
 	mkfs.ext4 $UPDATE_ROOT -F -L rootfs${UPDATE_PART} -q
 }
 
-if [ $1 == "preinst" ]; then
+if [ "$1" = "preinst" ]; then
 	# get the current root device
 	get_current_root_device
 
@@ -49,13 +50,13 @@ if [ $1 == "preinst" ]; then
 	ln -sf $UPDATE_ROOT /dev/update
 fi
 
-if [ $1 == "postinst" ]; then
+if [ "$1" = "postinst" ]; then
 	get_current_root_device
 
 	# Adjust u-boot-fw-utils for eMMC on the installed rootfs
 	mount -t ext4 /dev/update ${TMPDIR}/datadst
-	CURRENT_BLK_DEV=${CURRENT_ROOT%p?}
-	sed -i "s/\/dev\/mmcblk./${CURRENT_BLK_DEV//\//\\/}/" ${TMPDIR}/datadst/etc/fw_env.config
+	CURRENT_BLK_DEV="${CURRENT_ROOT%p?}"
+	sed -i "s/\/dev\/mmcblk./$(echo ${CURRENT_BLK_DEV} | sed 's_/_\\/_g')/" ${TMPDIR}/datadst/etc/fw_env.config
 	umount /dev/update
 
 	get_update_part
