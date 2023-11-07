@@ -16,6 +16,13 @@ ML_NNSTREAMER_PKGS = " \
 	nnstreamer-protobuf \
 "
 
+SWUPDATE_PKGS = " \
+	swupdate \
+	swupdate-www \
+	kernel-image \
+	kernel-devicetree \
+"
+
 # This must be added first as it provides the foundation for
 # subsequent modifications to the rootfs
 IMAGE_INSTALL += "\
@@ -46,6 +53,8 @@ APTGET_EXTRA_PACKAGES += "\
 	wireless-tools \
 	xterm \
 	zstd \
+	util-linux \
+	fdisk \
 "
 
 ##############################################################################
@@ -99,4 +108,7 @@ IMAGE_INSTALL += " \
 	gputop \
 	imx-gpu-sdk \
 	weston-examples \
+	u-boot-default-env \
+	u-boot-fw-utils \
+	${SWUPDATE_PKGS} \
 "
