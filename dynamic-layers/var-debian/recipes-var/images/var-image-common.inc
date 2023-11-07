@@ -11,6 +11,7 @@ export PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 APTGET_CHROOT_DIR = "${IMAGE_ROOTFS}"
 APTGET_SKIP_UPGRADE = "1"
 
+ROOTFS_POSTPROCESS_COMMAND:prepend = "compare_rootfs_with_debian_base;"
 ROOTFS_POSTPROCESS_COMMAND:append = "do_fix_ldconfig; do_save_graphics; do_aptget_update; do_update_host; do_config_netplan;"
 IMAGE_PREPROCESS_COMMAND:append = " do_config_systemd_resolved; do_enable_graphics; do_cleanup_rootfs; "
 
@@ -162,6 +163,28 @@ fakeroot do_config_systemd_resolved() {
 
 python do_rootfs:prepend() {
     d.setVar('IMAGE_LOG_CHECK_EXCLUDES', 'Failed')
+}
+
+compare_rootfs_with_debian_base() {
+	DEBIAN_BASE_DIR="${DEPLOY_DIR_IMAGE}/debian-base"
+
+	IMG_NAME="${PN}-${PV}-${PR}-${MACHINE}"
+	OUTPUT_DIR="${DEPLOY_DIR_IMAGE}/${IMG_NAME}"
+
+	if [ -d "${DEBIAN_BASE_DIR}" ]; then
+		# Ensure the output directory exists
+		install -d ${OUTPUT_DIR}
+
+		# List files in the current rootfs and the debian-base
+		find ${IMAGE_ROOTFS} -type f | sort | sed "s|${IMAGE_ROOTFS}||" > ${OUTPUT_DIR}/${IMG_NAME}_file_list.txt
+		find ${DEBIAN_BASE_DIR} -type f | sort | sed "s|${DEBIAN_BASE_DIR}||" > ${OUTPUT_DIR}/debian_base_file_list.txt
+
+		# Compare the lists and output the files unique to the current rootfs
+		comm -23 ${OUTPUT_DIR}/${IMG_NAME}_file_list.txt ${OUTPUT_DIR}/debian_base_file_list.txt > ${OUTPUT_DIR}/${IMG_NAME}_unique_files.txt
+
+		# Compare the lists and output the files unique to the debian-base
+		comm -13 ${OUTPUT_DIR}/${IMG_NAME}_file_list.txt ${OUTPUT_DIR}/debian_base_file_list.txt > ${OUTPUT_DIR}/debian_base_unique_files.txt
+	fi
 }
 
 IMAGE_ROOTFS_SIZE ?= "8192"
