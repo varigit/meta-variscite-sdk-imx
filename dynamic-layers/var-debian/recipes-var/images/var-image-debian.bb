@@ -55,6 +55,7 @@ APTGET_EXTRA_PACKAGES += "\
 	zstd \
 	util-linux \
 	fdisk \
+	iperf3 \
 "
 
 ##############################################################################
@@ -79,6 +80,26 @@ IMAGE_FEATURES += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston', \
        bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11-base x11-sato', \
                                                        '', d), d)} \
+"
+
+BRCM_YOCTO_PACKAGES = " \
+	bcm43xx-utils \
+	brcm-patchram-plus \
+	linux-firmware-bcm4339 \
+	linux-firmware-bcm43430 \
+"
+
+# TODO: Merge this with variscite.inc MACHINE_EXTRA_RDEPENDS
+# For now, MACHINE_EXTRA_RDEPENDS pulls in too many dependencies
+# that don't make sense to add to the debian-base image. To avoid
+# conflicts, install them here instead
+MACHINE_EXTRA_RDEPENDS_YOCTO = " \
+	var-mii \
+	u-boot-fw-utils \
+	u-boot-splash \
+	u-boot-default-env \
+	${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw612-sdio', 'iw612-utils', '', d)} \
+	${BRCM_YOCTO_PACKAGES} \
 "
 
 IMAGE_INSTALL += " \
@@ -108,7 +129,6 @@ IMAGE_INSTALL += " \
 	gputop \
 	imx-gpu-sdk \
 	weston-examples \
-	u-boot-default-env \
-	u-boot-fw-utils \
+	${MACHINE_EXTRA_RDEPENDS_YOCTO} \
 	${SWUPDATE_PKGS} \
 "
