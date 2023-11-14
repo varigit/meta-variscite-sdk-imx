@@ -131,4 +131,5 @@ IMAGE_INSTALL += " \
 	weston-examples \
 	${MACHINE_EXTRA_RDEPENDS_YOCTO} \
 	${SWUPDATE_PKGS} \
+	pm-utils-variscite \
 "
