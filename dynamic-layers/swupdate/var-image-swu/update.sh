@@ -53,6 +53,9 @@ fi
 if [ "$1" = "postinst" ]; then
 	get_current_root_device
 
+	# Create the mount point if it doesn't exist
+	mkdir -p ${TMPDIR}/datadst
+
 	# Adjust u-boot-fw-utils for eMMC on the installed rootfs
 	mount -t ext4 /dev/update ${TMPDIR}/datadst
 	CURRENT_BLK_DEV="${CURRENT_ROOT%p?}"
