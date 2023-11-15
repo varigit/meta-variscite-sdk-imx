@@ -28,7 +28,6 @@ SEC_PKGS                   = "packagegroup-var-security"
 
 IMAGE_FEATURES += " \
     splash \
-    package-management \
     ssh-server-dropbear \
     hwcodecs \
     debug-tweaks \
