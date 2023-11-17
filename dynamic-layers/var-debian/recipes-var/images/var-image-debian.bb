@@ -61,6 +61,9 @@ APTGET_EXTRA_PACKAGES += "\
 	util-linux \
 	fdisk \
 	iperf3 \
+	curl \
+	lvm2 \
+	can-utils \
 	${APTGET_ML_PKGS} \
 "
 
@@ -138,5 +141,8 @@ IMAGE_INSTALL += " \
 	${MACHINE_EXTRA_RDEPENDS_YOCTO} \
 	${SWUPDATE_PKGS} \
 	pm-utils-variscite \
+	keyctl-caam \
+	spidev-test \
+	udev udev-extraconf \
 	packagegroup-var-ml \
 "
