@@ -32,6 +32,11 @@ IMAGE_INSTALL += "\
 	debian-base-doc \
 "
 
+APTGET_ML_PKGS = " \
+	python3-torch \
+	python3-torchvision \
+"
+
 APTGET_EXTRA_PACKAGES += "\
 	ntpdate patchelf \
 	libpixman-1-0 libpango-1.0-0 libpangocairo-1.0-0 \
@@ -56,6 +61,7 @@ APTGET_EXTRA_PACKAGES += "\
 	util-linux \
 	fdisk \
 	iperf3 \
+	${APTGET_ML_PKGS} \
 "
 
 ##############################################################################
@@ -132,4 +138,5 @@ IMAGE_INSTALL += " \
 	${MACHINE_EXTRA_RDEPENDS_YOCTO} \
 	${SWUPDATE_PKGS} \
 	pm-utils-variscite \
+	packagegroup-var-ml \
 "
