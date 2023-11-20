@@ -14,11 +14,9 @@ ML_PKGS:mx8-nxp-bsp = " \
     torchvision \
 "
 ML_PKGS:append:mx8mq-nxp-bsp = " \
-    deepview-rt \
     tvm \
 "
 ML_PKGS:append:mx8mp-nxp-bsp = " \
-    deepview-rt \
     tvm \
 "
 ML_PKGS:remove:mx8mm-nxp-bsp = "tensorflow-lite-vx-delegate"
@@ -32,7 +30,6 @@ ML_EXTRA_PKGS:mx8-nxp-bsp = " \
 
 # MX9
 ML_PKGS:mx9-nxp-bsp = " \
-    deepview-rt-examples \
     onnxruntime-tests \
     tensorflow-lite \
     torchvision \
