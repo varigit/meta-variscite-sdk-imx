@@ -145,4 +145,12 @@ IMAGE_INSTALL += " \
 	spidev-test \
 	udev udev-extraconf \
 	packagegroup-var-ml \
+	chromium-ozone-wayland \
 "
+
+install_chromium() {
+	# Install icon to the launch bar
+	printf "\n[launcher]\nicon=/usr/share/icons/hicolor/24x24/apps/chromium.png\npath=/usr/sbin/runuser -l weston -c chromium" >> ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
+}
+
+ROOTFS_POSTPROCESS_COMMAND:append = " install_chromium;"
