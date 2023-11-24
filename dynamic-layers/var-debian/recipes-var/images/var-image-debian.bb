@@ -37,6 +37,12 @@ APTGET_ML_PKGS = " \
 	python3-torchvision \
 "
 
+APTGET_BT_PKGS = " \
+	libasound2-plugin-bluez \
+	libc6 \
+	expect \
+"
+
 APTGET_EXTRA_PACKAGES += "\
 	ntpdate patchelf \
 	libpixman-1-0 libpango-1.0-0 libpangocairo-1.0-0 \
@@ -65,6 +71,7 @@ APTGET_EXTRA_PACKAGES += "\
 	lvm2 \
 	can-utils \
 	${APTGET_ML_PKGS} \
+	${APTGET_BT_PKGS} \
 "
 
 ##############################################################################
@@ -145,6 +152,7 @@ IMAGE_INSTALL += " \
 	spidev-test \
 	udev udev-extraconf \
 	packagegroup-var-ml \
+	bluealsa \
 	chromium-ozone-wayland \
 "
 
@@ -153,4 +161,17 @@ install_chromium() {
 	printf "\n[launcher]\nicon=/usr/share/icons/hicolor/24x24/apps/chromium.png\npath=/usr/sbin/runuser -l weston -c chromium" >> ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
 }
 
-ROOTFS_POSTPROCESS_COMMAND:append = " install_chromium;"
+install_obex_service() {
+	local layer_dir="${TOPDIR}/../sources"
+
+	# Copy obex.service to the systemd system directory
+	install -m 0644 "${layer_dir}/meta-variscite-bsp-common/recipes-connectivity/bluez5/files/obex.service" "${IMAGE_ROOTFS}${libdir}/systemd/system/obex.service"
+
+ 	# Copy obexd.conf to the D-Bus system configuration directory
+	install -m 0644 "${layer_dir}/meta-variscite-bsp-common/recipes-connectivity/bluez5/files/obexd.conf" "${IMAGE_ROOTFS}${sysconfdir}/dbus-1/system.d/obexd.conf"
+
+	# Enable obex.service
+	ln -sf "${libdir}/systemd/system/obex.service" "${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/obex.service"
+}
+
+ROOTFS_POSTPROCESS_COMMAND:append = " install_chromium; install_obex_service;"
