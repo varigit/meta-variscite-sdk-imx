@@ -1,35 +1,38 @@
-# A desktop image with an Desktop rootfs
+# Variscite Debian Image
 #
-# Note that we have a tight dependency to debian-base
-# and that we cannot just install arbitrary Yocto packages to avoid
-# rootfs pollution or destruction.
-PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
+# This image supports Variscite i.MX SoCs and includes hardware-specific packages
+# like imx-atf, linux, gstreamer, and wayland, built using Yocto recipes.
+# These packages are installed via IMAGE_INSTALL. All dependencies required by
+# recipes in IMAGE_INSTALL must be provided by the debian-base recipe. Failure to
+# do so will result in build errors due to package conflicts.
+#
+# Generic packages not dependent on any IMAGE_INSTALL packages (e.g., vim, docker)
+# should be installed using APT.
+#
+DESCRIPTION = "This Variscite Debian image is tailored for testing Variscite i.MX \
+machines. It includes a GUI, various demos, and a wide range of applications, \
+making it ideal for development and testing. Based on Debian [version], this image \
+is comprehensive but large, and may not be optimized for production use."
+LICENSE = "MIT"
 
 require var-image-common.inc
 
 REQUIRED_DISTRO_FEATURES = "wayland"
 
-ML_NNSTREAMER_PKGS = " \
-	nnstreamer \
-	nnstreamer-tensorflow-lite \
-	nnstreamer-python3 \
-	nnstreamer-protobuf \
-"
-
-SWUPDATE_PKGS = " \
-	swupdate \
-	swupdate-www \
-	kernel-image \
-	kernel-devicetree \
-"
-
-# This must be added first as it provides the foundation for
-# subsequent modifications to the rootfs
-IMAGE_INSTALL += "\
-	debian-base \
-	debian-base-dev \
-	debian-base-dbg \
-	debian-base-doc \
+IMAGE_FEATURES += " \
+	tools-sdk \
+	debug-tweaks \
+	tools-profile \
+	package-management \
+	splash \
+	nfs-server \
+	tools-debug \
+	ssh-server-dropbear \
+	tools-testapps \
+	hwcodecs \
+	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
+	   bb.utils.contains('DISTRO_FEATURES',	 'x11', 'x11-base x11-sato', \
+	   '', d), d)} \
 "
 
 APTGET_ML_PKGS = " \
@@ -43,7 +46,9 @@ APTGET_BT_PKGS = " \
 	expect \
 "
 
+# Packages to be installed by Debian
 APTGET_EXTRA_PACKAGES += "\
+	apt \
 	ntpdate patchelf \
 	libpixman-1-0 libpango-1.0-0 libpangocairo-1.0-0 \
 	squashfs-tools \
@@ -72,6 +77,16 @@ APTGET_EXTRA_PACKAGES += "\
 	can-utils \
 	${APTGET_ML_PKGS} \
 	${APTGET_BT_PKGS} \
+	console-setup locales \
+	vim \
+	ethtool wget ftp iputils-ping \
+	net-tools \
+	nfs-common \
+	openssh-server \
+	libtool autoconf pkg-config \
+	python-is-python3 \
+	netplan.io \
+	network-manager \
 "
 
 ##############################################################################
@@ -82,23 +97,41 @@ APTGET_EXTRA_PACKAGES += "\
 # to the final image that we build.
 ##############################################################################
 
-IMAGE_INSTALL += " \
+# Debian base root filesystem, provides all dependencies for other packages
+# installed yocto, e.g. IMAGE_INSTALL
+BB_DEBIAN_BASE = "\
+	debian-base \
+	debian-base-dev \
+	debian-base-dbg \
+	debian-base-doc \
+"
+
+# swupdate
+BB_SWUPDATE_PKGS = " \
+	swupdate \
+	swupdate-www \
+	kernel-image \
+	kernel-devicetree \
+"
+
+# ml
+BB_ML_PKGS = " \
+	packagegroup-var-ml \
+"
+
+# gstreamer
+BB_GSTREAMER_PKGS = " \
 	packagegroup-fsl-gstreamer1.0 \
 	packagegroup-fsl-gstreamer1.0-full \
 "
 
-# # GPU driver
-G2D_SAMPLES                 = ""
-G2D_SAMPLES:imxgpu2d        = "imx-g2d-samples"
-G2D_SAMPLES:imxdpu          = "imx-g2d-samples"
+# GPU driver
+BB_G2D_SAMPLES                 = ""
+BB_G2D_SAMPLES:imxgpu2d        = "imx-g2d-samples"
+BB_G2D_SAMPLES:imxdpu          = "imx-g2d-samples"
 
-IMAGE_FEATURES += " \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston', \
-       bb.utils.contains('DISTRO_FEATURES',     'x11', 'x11-base x11-sato', \
-                                                       '', d), d)} \
-"
-
-BRCM_YOCTO_PACKAGES = " \
+# bcm4339 and bcm4339
+BB_BRCM_PKGS = " \
 	bcm43xx-utils \
 	brcm-patchram-plus \
 	linux-firmware-bcm4339 \
@@ -109,22 +142,26 @@ BRCM_YOCTO_PACKAGES = " \
 # For now, MACHINE_EXTRA_RDEPENDS pulls in too many dependencies
 # that don't make sense to add to the debian-base image. To avoid
 # conflicts, install them here instead
-MACHINE_EXTRA_RDEPENDS_YOCTO = " \
+BB_MACHINE_EXTRA_RDEPENDS = " \
 	var-mii \
 	u-boot-fw-utils \
 	u-boot-splash \
 	u-boot-default-env \
 	${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw612-sdio', 'iw612-utils', '', d)} \
-	${BRCM_YOCTO_PACKAGES} \
+	${BB_BRCM_PKGS} \
 "
 
-IMAGE_INSTALL += " \
+BB_WESTON_PKGS = " \
 	weston \
+	weston-examples \
 	weston-xwayland \
+	wayland-protocols \
 "
 
+# Packages to be installed by Yocto
 IMAGE_INSTALL += " \
-	wayland-protocols \
+	${BB_DEBIAN_BASE} \
+	${MACHINE_EXTRA_RRECOMMENDS} \
 	libgles1-imx libgles1-imx-dev \
 	libgles2-imx libgles2-imx-dev \
 	libgles3-imx-dev \
@@ -140,20 +177,22 @@ IMAGE_INSTALL += " \
 	libdrm-vivante \
 	imx-gpu-viv-tools \
 	libgpuperfcnt \
-	${G2D_SAMPLES} \
+	${BB_G2D_SAMPLES} \
 	apitrace \
 	gputop \
 	imx-gpu-sdk \
-	weston-examples \
-	${MACHINE_EXTRA_RDEPENDS_YOCTO} \
-	${SWUPDATE_PKGS} \
+	${BB_MACHINE_EXTRA_RDEPENDS} \
+	${BB_SWUPDATE_PKGS} \
 	pm-utils-variscite \
 	keyctl-caam \
 	spidev-test \
 	udev udev-extraconf \
-	packagegroup-var-ml \
 	bluealsa \
 	chromium-ozone-wayland \
+	${BB_ML_PKGS} \
+	${BB_GSTREAMER_PKGS} \
+	${BB_WESTON_PKGS} \
+	perf \
 "
 
 install_chromium() {
@@ -174,4 +213,7 @@ install_obex_service() {
 	ln -sf "${libdir}/systemd/system/obex.service" "${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/obex.service"
 }
 
-ROOTFS_POSTPROCESS_COMMAND:append = " install_chromium; install_obex_service;"
+ROOTFS_POSTPROCESS_COMMAND:prepend = " \
+	install_chromium; \
+	install_obex_service; \
+"

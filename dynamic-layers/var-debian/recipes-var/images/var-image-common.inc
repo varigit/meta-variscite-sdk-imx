@@ -1,60 +1,26 @@
-# A desktop image with an Desktop rootfs
-#
-# and that we cannot just install arbitrary Yocto packages to avoid
-# rootfs pollution or destruction.
+# Common code for Variscite Debian images
 
 IMAGE_LINGUAS = ""
 IMAGE_INSTALL = ""
 inherit core-image image nativeaptinstall features_check
 export PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 
+PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
+
+ROOTFS_POSTPROCESS_COMMAND = " \
+	do_fix_ldconfig; \
+	compare_rootfs_with_debian_base; \
+	do_aptget_update; \
+	do_update_host; \
+"
+
+IMAGE_PREPROCESS_COMMAND = " \
+	do_config_systemd_resolved; \
+	do_cleanup_rootfs; \
+"
+
 APTGET_CHROOT_DIR = "${IMAGE_ROOTFS}"
 APTGET_SKIP_UPGRADE = "1"
-
-ROOTFS_POSTPROCESS_COMMAND:prepend = "compare_rootfs_with_debian_base;"
-ROOTFS_POSTPROCESS_COMMAND:append = "do_fix_ldconfig; do_aptget_update; do_update_host;"
-IMAGE_PREPROCESS_COMMAND:append = " do_config_systemd_resolved; do_cleanup_rootfs; "
-
-
-IMAGE_INSTALL += "\
-	kernel-devicetree \
-	kernel-image \
-	${MACHINE_EXTRA_RRECOMMENDS} \
-	perf \
-"
-
-IMAGE_FEATURES += " \
-	tools-sdk \
-	debug-tweaks \
-	tools-profile \
-	package-management \
-	splash \
-	nfs-server \
-	tools-debug \
-	ssh-server-dropbear \
-	tools-testapps \
-	hwcodecs \
-	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
-	   bb.utils.contains('DISTRO_FEATURES',	 'x11', 'x11-base x11-sato', \
-													   '', d), d)} \
-"
-
-APTGET_EXTRA_PACKAGES += "\
-	console-setup locales \
-	apt vim \
-	ethtool wget ftp iputils-ping \
-	net-tools \
-	nfs-common \
-	openssh-server \
-	libtool autoconf pkg-config \
-	bluez \
-	python-is-python3 \
-	netplan.io \
-	network-manager \
-"
-
-APTGET_EXTRA_SOURCE_PACKAGES += "\
-"
 
 # Add user with password user and default shell bash
 USER_SHELL_BASH ?= "/bin/bash"
@@ -90,7 +56,7 @@ do_cleanup_rootfs() {
 	set +x
 }
 
-# We need to add Yocto libraries to LD path and remove conflicting libraries
+# Add Yocto libraries to LD path and remove conflicting libraries
 fakeroot do_fix_ldconfig() {
 	# Ld config misses /usr/lib path
 	set -x
