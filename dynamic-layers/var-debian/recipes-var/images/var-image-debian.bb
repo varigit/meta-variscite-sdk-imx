@@ -204,6 +204,27 @@ IMAGE_INSTALL:remove:mx8mm-nxp-bsp = " \
 	libopenvx-imx libopenvx-imx-dev \
 "
 
+# Remove GPU packags not supported by imx93
+IMAGE_INSTALL:remove:mx93-nxp-bsp = " \
+	libgles1-imx libgles1-imx-dev \
+	libgles2-imx libgles2-imx-dev \
+	libgles3-imx-dev \
+	libglslc-imx \
+	libopencl-imx \
+	libegl-imx libegl-imx-dev \
+	libgal-imx libgal-imx-dev \
+	libvsc-imx \
+	libgbm-imx libgbm-imx-dev \
+	libvulkan-imx \
+	libopenvx-imx libopenvx-imx-dev \
+	libnn-imx \
+	libdrm-vivante \
+	imx-gpu-viv-tools \
+	libgpuperfcnt \
+	gputop \
+	imx-gpu-sdk \
+"
+
 install_chromium() {
 	# Install icon to the launch bar
 	printf "\n[launcher]\nicon=/usr/share/icons/hicolor/24x24/apps/chromium.png\npath=/usr/sbin/runuser -l weston -c chromium" >> ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
