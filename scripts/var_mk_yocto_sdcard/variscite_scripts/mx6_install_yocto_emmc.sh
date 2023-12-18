@@ -94,7 +94,7 @@ function create_parts
 	if [[ $is_dart == true ]] ; then
 		SECT_SIZE_BYTES=`cat /sys/block/${block}/queue/hw_sector_size`
 		PART1_FIRST_SECT=`expr 4 \* 1024 \* 1024 \/ $SECT_SIZE_BYTES`
-		PART2_FIRST_SECT=`expr $((4 + 8)) \* 1024 \* 1024 \/ $SECT_SIZE_BYTES`
+		PART2_FIRST_SECT=`expr $((4 + 12)) \* 1024 \* 1024 \/ $SECT_SIZE_BYTES`
 		PART1_LAST_SECT=`expr $PART2_FIRST_SECT - 1`
 
 		(echo n; echo p; echo $bootpart; echo $PART1_FIRST_SECT; echo $PART1_LAST_SECT; echo t; echo c; \
