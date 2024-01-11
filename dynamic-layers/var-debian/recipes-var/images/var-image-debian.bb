@@ -188,7 +188,6 @@ IMAGE_INSTALL += " \
 	spidev-test \
 	udev udev-extraconf \
 	bluealsa \
-	chromium-ozone-wayland \
 	${BB_ML_PKGS} \
 	${BB_GSTREAMER_PKGS} \
 	${BB_WESTON_PKGS} \
@@ -244,6 +243,9 @@ install_obex_service() {
 }
 
 ROOTFS_POSTPROCESS_COMMAND:prepend = " \
-	install_chromium; \
 	install_obex_service; \
+	${@bb.utils.contains('IMAGE_INSTALL', 'chromium-ozone-wayland', 'install_chromium; ', '', d)}; \
 "
+
+IMAGE_INSTALL:append:mx8mp-nxp-bsp = " chromium-ozone-wayland"
+IMAGE_INSTALL:append:mx8mm-nxp-bsp = " chromium-ozone-wayland"
