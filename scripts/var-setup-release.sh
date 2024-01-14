@@ -31,6 +31,9 @@ if [ "$#" -ne 1 ]; then usage
    return 1
 fi
 
+# Fix do_fetch() failure with .zst archives
+sed -i "s/\['.gz', '.bz2', '.Z', '.xz', '.lz'\]/\['.gz', '.bz2', '.Z', '.xz', '.lz', '.zst'\]/g" ./sources/poky/bitbake/lib/bb/fetch2/__init__.py
+
 BUILD_DIR="$1"
 
 # Determine if FSLC or NXP distro
