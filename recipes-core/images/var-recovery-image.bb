@@ -30,4 +30,9 @@ VAR_RECOVERY_IMAGE_RENAME[imx-boot] = "imx-boot-sd.bin"
 # Use the var-recovery bbclass
 inherit var-recovery
 
+# Install Android files
+RDEPENDS:${PN}:mx8-nxp-bsp += " \
+	${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
+"
+
 COMPATIBLE_MACHINE = "(mx8-nxp-bsp|mx9-nxp-bsp)"
