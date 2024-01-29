@@ -97,6 +97,27 @@ compare_rootfs_with_debian_base() {
 	fi
 }
 
+DISTRO_VERSION[vardepsexclude] += "DATE"
+install_basefilesissue() {
+	local layer_dir="${TOPDIR}/../sources"
+
+	install -m 644 ${layer_dir}/meta-variscite-sdk-common/recipes-core/base-files/base-files/issue*  ${IMAGE_ROOTFS}${sysconfdir}
+	if [ -n "${DISTRO_NAME}" ]; then
+		printf "${DISTRO_NAME} " >> ${IMAGE_ROOTFS}${sysconfdir}/issue
+		printf "${DISTRO_NAME} " >> ${IMAGE_ROOTFS}${sysconfdir}/issue.net
+		if [ -n "${DISTRO_VERSION}" ]; then
+			distro_version_nodate="${@d.getVar('DISTRO_VERSION').replace('snapshot-${DATE}','snapshot').replace('${DATE}','')}"
+			printf "%s " $distro_version_nodate >> ${IMAGE_ROOTFS}${sysconfdir}/issue
+			printf "%s " $distro_version_nodate >> ${IMAGE_ROOTFS}${sysconfdir}/issue.net
+		fi
+		printf "\\\n \\\l\n" >> ${IMAGE_ROOTFS}${sysconfdir}/issue
+		echo >> ${IMAGE_ROOTFS}${sysconfdir}/issue
+		echo "%h"    >> ${IMAGE_ROOTFS}${sysconfdir}/issue.net
+		echo >> ${IMAGE_ROOTFS}${sysconfdir}/issue.net
+	fi
+}
+install_basefilesissue[vardepsexclude] += "DATE"
+
 do_rootfs[network] = "1"
 
 COMPATIBLE_MACHINE = "(.*debian)"

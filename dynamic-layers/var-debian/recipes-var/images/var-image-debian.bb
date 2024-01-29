@@ -244,6 +244,7 @@ install_obex_service() {
 
 ROOTFS_POSTPROCESS_COMMAND:prepend = " \
 	install_obex_service; \
+	install_basefilesissue; \
 	${@bb.utils.contains('IMAGE_INSTALL', 'chromium-ozone-wayland', 'install_chromium; ', '', d)}; \
 "
 
