@@ -187,6 +187,7 @@ IMAGE_INSTALL += " \
 	keyctl-caam \
 	spidev-test \
 	udev udev-extraconf \
+	alsa-state \
 	bluealsa \
 	${BB_ML_PKGS} \
 	${BB_GSTREAMER_PKGS} \
