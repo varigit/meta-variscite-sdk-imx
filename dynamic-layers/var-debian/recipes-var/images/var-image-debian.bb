@@ -144,6 +144,7 @@ BB_BRCM_PKGS = " \
 # conflicts, install them here instead
 BB_MACHINE_EXTRA_RDEPENDS = " \
 	var-mii \
+	var-wallpapers \
 	u-boot-fw-utils \
 	u-boot-splash \
 	u-boot-default-env \
@@ -243,7 +244,14 @@ install_obex_service() {
 	ln -sf "${libdir}/systemd/system/obex.service" "${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/obex.service"
 }
 
+install_wallpaper() {
+	# Install default wallpaper for weston
+	sed -i -e "/^\[shell\]/a background-type=scale-crop" ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
+	sed -i -e "/^\[shell\]/a background-image=${datadir}/images/desktop-base/default" ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
+}
+
 ROOTFS_POSTPROCESS_COMMAND:prepend = " \
+	install_wallpaper; \
 	install_obex_service; \
 	install_basefilesissue; \
 	${@bb.utils.contains('IMAGE_INSTALL', 'chromium-ozone-wayland', 'install_chromium; ', '', d)}; \
