@@ -7,14 +7,18 @@ export PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 
 PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
 
-ROOTFS_POSTPROCESS_COMMAND = " \
+ROOTFS_POSTPROCESS_COMMAND:append = " \
 	do_fix_ldconfig; \
 	compare_rootfs_with_debian_base; \
 	do_aptget_update; \
 	do_update_host; \
 "
 
-IMAGE_PREPROCESS_COMMAND = " \
+ROOTFS_POSTPROCESS_COMMAND:remove = " \
+	set_systemd_default_target; \
+"
+
+IMAGE_PREPROCESS_COMMAND:append = " \
 	do_config_systemd_resolved; \
 	do_cleanup_rootfs; \
 "
