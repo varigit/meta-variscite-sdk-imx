@@ -7,7 +7,7 @@ export PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 
 PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
 
-ROOTFS_POSTPROCESS_COMMAND:append = " \
+ROOTFS_POSTPROCESS_COMMAND:prepend = " \
 	do_fix_ldconfig; \
 	compare_rootfs_with_debian_base; \
 	do_aptget_update; \
