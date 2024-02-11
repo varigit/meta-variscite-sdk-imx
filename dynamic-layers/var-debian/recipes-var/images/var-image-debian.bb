@@ -30,7 +30,7 @@ IMAGE_FEATURES += " \
 	ssh-server-dropbear \
 	tools-testapps \
 	hwcodecs \
-	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', '', \
+	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston', \
 	   bb.utils.contains('DISTRO_FEATURES',	 'x11', 'x11-base x11-sato', \
 	   '', d), d)} \
 "

@@ -14,10 +14,6 @@ ROOTFS_POSTPROCESS_COMMAND:append = " \
 	do_update_host; \
 "
 
-ROOTFS_POSTPROCESS_COMMAND:remove = " \
-	set_systemd_default_target; \
-"
-
 IMAGE_PREPROCESS_COMMAND:append = " \
 	do_config_systemd_resolved; \
 	do_cleanup_rootfs; \
