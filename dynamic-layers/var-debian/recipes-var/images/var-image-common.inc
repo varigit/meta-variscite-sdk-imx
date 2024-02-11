@@ -12,6 +12,7 @@ ROOTFS_POSTPROCESS_COMMAND:prepend = " \
 	compare_rootfs_with_debian_base; \
 	do_aptget_update; \
 	do_update_host; \
+	do_update_root_passwd; \
 "
 
 IMAGE_PREPROCESS_COMMAND:append = " \
@@ -21,6 +22,9 @@ IMAGE_PREPROCESS_COMMAND:append = " \
 
 APTGET_CHROOT_DIR = "${IMAGE_ROOTFS}"
 APTGET_SKIP_UPGRADE = "1"
+
+# Default password: root
+USER_PASSWD_ROOT ?= "POYe5TylsuKjU"
 
 # Add user with password user and default shell bash
 USER_SHELL_BASH ?= "/bin/bash"
@@ -68,6 +72,13 @@ fakeroot do_config_systemd_resolved() {
 	set -x
 	rm -f ${IMAGE_ROOTFS}/etc/resolv.conf
 	ln /usr/lib/systemd/resolv.conf -s ${IMAGE_ROOTFS}/etc/resolv.conf
+	set +x
+}
+
+fakeroot do_update_root_passwd() {
+	set -x
+	# Update root password directly
+	sed -i 's/^root:[^:]*:/root:${USER_PASSWD_ROOT}:/g' ${IMAGE_ROOTFS}/etc/shadow
 	set +x
 }
 
