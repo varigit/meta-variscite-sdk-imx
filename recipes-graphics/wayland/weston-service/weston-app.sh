@@ -2,17 +2,11 @@
 
 westonapp_start()
 {
-    # check XDG_RUNTIME_DIR
-    if test -z "$XDG_RUNTIME_DIR"; then
-        export XDG_RUNTIME_DIR=/run/user/`id -u`
-        if ! test -d "$XDG_RUNTIME_DIR"; then
-            mkdir --parents $XDG_RUNTIME_DIR
-            chmod 0700 $XDG_RUNTIME_DIR
-        fi
-    fi
+    # set WAYLAND_DISPLAY to global socket
+    . /etc/profile.d/weston-socket.sh
 
     # wait for wayland to start
-    while [ ! -e $XDG_RUNTIME_DIR/wayland-0 ]
+    while [ ! -e $WAYLAND_DISPLAY ]
     do
         sleep 0.1
     done
