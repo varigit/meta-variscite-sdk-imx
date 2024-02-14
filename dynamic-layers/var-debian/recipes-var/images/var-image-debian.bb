@@ -107,6 +107,14 @@ BB_DEBIAN_BASE = "\
 	debian-base-doc \
 "
 
+# Kernel dev packages
+BB_KERNEL_DEV_PKGS = " \
+	kernel-dev \
+	kernel-devsrc \
+	kernel-modules \
+	linux-imx-headers-dev \
+"
+
 # swupdate
 BB_SWUPDATE_PKGS = " \
 	swupdate \
@@ -156,6 +164,7 @@ BB_MACHINE_EXTRA_RDEPENDS = " \
 	u-boot-default-env \
 	${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw612-sdio', 'iw612-utils', '', d)} \
 	${BB_BRCM_PKGS} \
+	${BB_KERNEL_DEV_PKGS} \
 "
 
 BB_WESTON_PKGS = " \
