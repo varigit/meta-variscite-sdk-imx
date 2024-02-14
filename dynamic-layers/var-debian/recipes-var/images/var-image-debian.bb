@@ -75,6 +75,7 @@ APTGET_EXTRA_PACKAGES += "\
 	curl \
 	lvm2 \
 	can-utils \
+	v4l-utils \
 	${APTGET_ML_PKGS} \
 	${APTGET_BT_PKGS} \
 	console-setup locales \
@@ -117,6 +118,11 @@ BB_SWUPDATE_PKGS = " \
 # ml
 BB_ML_PKGS = " \
 	packagegroup-var-ml \
+"
+
+# camera
+BB_CAMERA_PKGS = " \
+	packagegroup-fsl-isp \
 "
 
 # gstreamer
@@ -191,6 +197,7 @@ IMAGE_INSTALL += " \
 	alsa-state \
 	bluealsa \
 	${BB_ML_PKGS} \
+	${BB_CAMERA_PKGS} \
 	${BB_GSTREAMER_PKGS} \
 	${BB_WESTON_PKGS} \
 	perf \
