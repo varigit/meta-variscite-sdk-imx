@@ -17,7 +17,7 @@ VAR_RECOVERY_TARGET_ROOTFS ?= "fsl-image-gui"
 
 # The recovery SD image is dependent on imx-boot components
 VAR_RECOVERY_DEPENDS = "\
-   imx-boot \
+    imx-boot \
 "
 
 # Package the imx-boot generated file in the SD image
@@ -32,7 +32,7 @@ inherit var-recovery
 
 # Install Android files
 IMAGE_INSTALL:append:mx8-nxp-bsp = " \
-	${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
+    ${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
 "
 
 COMPATIBLE_MACHINE = "(mx8-nxp-bsp|mx9-nxp-bsp)"
