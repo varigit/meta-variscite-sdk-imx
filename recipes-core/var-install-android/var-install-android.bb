@@ -47,4 +47,6 @@ FILES:${PN} = "\
 	/opt/images/Android/* \
 "
 
+INSANE_SKIP:${PN} += "arch"
+
 COMPATIBLE_MACHINE = "mx8-nxp-bsp"
