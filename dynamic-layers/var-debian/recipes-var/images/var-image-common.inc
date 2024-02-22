@@ -9,7 +9,7 @@ PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
 
 ROOTFS_POSTPROCESS_COMMAND:prepend = " \
 	do_fix_ldconfig; \
-	compare_rootfs_with_debian_base; \
+	do_compare_rootfs; \
 	do_aptget_update; \
 	do_update_host; \
 	do_update_root_passwd; \
@@ -86,7 +86,11 @@ python do_rootfs:prepend() {
     d.setVar('IMAGE_LOG_CHECK_EXCLUDES', 'Failed')
 }
 
-compare_rootfs_with_debian_base() {
+# Compare debian-base rootfs with current rootfs and create file lists
+# for debug purpose. This can be helpful to understand which files are
+# actually provided by debian-base, and which are provided by the target
+# image.
+do_compare_rootfs() {
 	DEBIAN_BASE_DIR="${DEPLOY_DIR_IMAGE}/debian-base"
 
 	IMG_NAME="${PN}-${PV}-${PR}-${MACHINE}"
