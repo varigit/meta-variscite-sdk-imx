@@ -13,9 +13,6 @@ ML_PKGS:mx8-nxp-bsp = " \
     tensorflow-lite-vx-delegate \
     torchvision \
 "
-ML_PKGS:append:mx8mq-nxp-bsp = " \
-    tvm \
-"
 ML_PKGS:append:mx8mp-nxp-bsp = " \
     tvm \
 "
