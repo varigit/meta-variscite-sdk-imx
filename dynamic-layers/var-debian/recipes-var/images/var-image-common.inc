@@ -12,8 +12,8 @@ APTGET_CHROOT_DIR = "${IMAGE_ROOTFS}"
 APTGET_SKIP_UPGRADE = "1"
 
 ROOTFS_POSTPROCESS_COMMAND:prepend = "compare_rootfs_with_debian_base;"
-ROOTFS_POSTPROCESS_COMMAND:append = "do_fix_ldconfig; do_save_graphics; do_aptget_update; do_update_host; do_config_netplan;"
-IMAGE_PREPROCESS_COMMAND:append = " do_config_systemd_resolved; do_enable_graphics; do_cleanup_rootfs; "
+ROOTFS_POSTPROCESS_COMMAND:append = "do_fix_ldconfig; do_aptget_update; do_update_host;"
+IMAGE_PREPROCESS_COMMAND:append = " do_config_systemd_resolved; do_cleanup_rootfs; "
 
 
 IMAGE_INSTALL += "\
@@ -78,59 +78,6 @@ fakeroot do_update_host() {
 	echo >>"${APTGET_CHROOT_DIR}/etc/hosts" "ff02::1 ip6-allnodes"
 	echo >>"${APTGET_CHROOT_DIR}/etc/hosts" "ff02::2 ip6-allrouters"
 	echo >>"${APTGET_CHROOT_DIR}/etc/hosts" "ff02::3 ip6-allhosts"
-	set +x
-}
-
-do_config_netplan() {
-	set -x
-
-	echo >>"${APTGET_CHROOT_DIR}/etc/netplan/network-manage-all.yaml" "network:"
-	echo >>"${APTGET_CHROOT_DIR}/etc/netplan/network-manage-all.yaml" "  version: 2"
-	echo >>"${APTGET_CHROOT_DIR}/etc/netplan/network-manage-all.yaml" "  renderer: NetworkManager"
-
-	set +x
-}
-
-fakeroot do_save_graphics() {
-	set -x
-
-	if [ -e "${IMAGE_ROOTFS}/usr/bin/Xwayland" ]; then
-		# backup graphics components
-		mv ${IMAGE_ROOTFS}/usr/bin/Xwayland ${IMAGE_ROOTFS}/usr/bin/Xwayland_imx
-	fi
-
-	set +x
-}
-
-do_enable_graphics() {
-	set -x
-
-	if [ -e "${IMAGE_ROOTFS}/usr/bin/Xwayland" ]; then
-	# set egl/gles2 for gnome/mutter compositor
-#	echo >>"${IMAGE_ROOTFS}/etc/environment" "COGL_RENDERER=egl_wayland"
-		echo >>"${IMAGE_ROOTFS}/etc/environment" "COGL_DRIVER=gles2"
-#	echo >>"${IMAGE_ROOTFS}/etc/environment" "CLUTTER_BACKEND=wayland"
-		echo >>"${IMAGE_ROOTFS}/etc/environment" "CLUTTER_DRIVER=gles2"
-		# Warning: Ignoring XDG_SESSION_TYPE=wayland on Gnome. Use QT_QPA_PLATFORM=waylandd
-		# to run on Wayland anyway.
-		echo >>"${IMAGE_ROOTFS}/etc/environment" "QT_QPA_PLATFORM=wayland"
-
-		# video playback use gtkglsink as default sink, need chose GDK_GL = gles
-		# to use gles backend in gtk
-		echo >>"${IMAGE_ROOTFS}/etc/environment" "GDK_GL=gles"
-
-		# disable xsession startup
-		rm -f ${IMAGE_ROOTFS}/usr/share/xsessions/*
-
-		cp -f ${IMAGE_ROOTFS}/usr/bin/Xwayland_imx ${IMAGE_ROOTFS}/usr/bin/Xwayland
-
-		rm -f ${IMAGE_ROOTFS}/usr/lib/systemd/system/default.target
-		ln graphical.target -s ${IMAGE_ROOTFS}/usr/lib/systemd/system/default.target
-
-		rm -f ${IMAGE_ROOTFS}/etc/systemd/system/default.target
-		ln /usr/lib/systemd/system/graphical.target -s ${IMAGE_ROOTFS}/etc/systemd/system/default.target
-	fi
-
 	set +x
 }
 
