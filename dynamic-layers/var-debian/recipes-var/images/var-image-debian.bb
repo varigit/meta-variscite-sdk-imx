@@ -35,11 +35,6 @@ IMAGE_FEATURES += " \
 	   '', d), d)} \
 "
 
-APTGET_ML_PKGS = " \
-	python3-torch \
-	python3-torchvision \
-"
-
 APTGET_BT_PKGS = " \
 	libasound2-plugin-bluez \
 	libc6 \
@@ -76,7 +71,6 @@ APTGET_EXTRA_PACKAGES += "\
 	lvm2 \
 	can-utils \
 	v4l-utils \
-	${APTGET_ML_PKGS} \
 	${APTGET_BT_PKGS} \
 	console-setup locales \
 	vim \
