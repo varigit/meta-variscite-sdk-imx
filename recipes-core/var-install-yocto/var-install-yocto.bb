@@ -6,6 +6,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 FILESEXTRAPATHS:prepend := "${THISDIR}/../../scripts/var_mk_yocto_sdcard/variscite_scripts:"
 
 INSTALL_SCRIPT ?= "mx8_install_yocto.sh"
+INSTALL_SCRIPT_NAME ?= "install_yocto.sh"
 
 RDEPENDS:${PN} = "bash zstd"
 
@@ -16,12 +17,12 @@ SRC_URI = "\
 
 do_install() {
     install -d ${D}${bindir}
-    install -m 755 ${WORKDIR}/${INSTALL_SCRIPT} ${D}${bindir}/install_yocto.sh
+    install -m 755 ${WORKDIR}/${INSTALL_SCRIPT} ${D}${bindir}/${INSTALL_SCRIPT_NAME}
     install -m 755 ${WORKDIR}/echos.sh ${D}${bindir}/echos.sh
 }
 
 FILES:${PN} = "\
-    ${bindir}/install_yocto.sh \
+    ${bindir}/${INSTALL_SCRIPT_NAME} \
     ${bindir}/echos.sh \
 "
 
