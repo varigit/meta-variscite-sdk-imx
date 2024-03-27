@@ -12,9 +12,9 @@ ANDROID_IMAGE_FILENAME:imx8mm-var-dart = "mx8mm__yocto-mickledore-6.1.36_2.1.0-v
 ANDROID_IMAGE_FOLDER:imx8mm-var-dart = "DART-MX8M-MINI"
 ANDROID_IMAGE_CKSUM:imx8mm-var-dart = "0edb389f552ff6194efb01a9920e3b9a41089f4409b9a0f1cc64b77079a53103"
 
-ANDROID_IMAGE_FILENAME:imx8mn-var-som = "mx8mn__yocto-mickledore-6.1.36_2.1.0-v1.0__android-12.0.0_2.0.0-v1.1.wic"
+ANDROID_IMAGE_FILENAME:imx8mn-var-som = "mx8mn__yocto-mickledore-6.1.36_2.1.0-v1.0__android-14.0.0_1.0.0-v1.0.wic"
 ANDROID_IMAGE_FOLDER:imx8mn-var-som = "VAR-SOM-MX8M-NANO"
-ANDROID_IMAGE_CKSUM:imx8mn-var-som = "4cf5d8e78c0a7ca697bf09d863a732830abdfe315a077c52721fee1458b54c10"
+ANDROID_IMAGE_CKSUM:imx8mn-var-som = "f280fbf537461cb08da8eacd91bfe5a25585409757871190a95f60d0a90ad177"
 
 ANDROID_IMAGE_FILENAME:imx8mq-var-dart = "mx8m__yocto-kirkstone-5.15-2.0.x-v1.5__android-13.0.0_1.2.0-v1.2.img"
 ANDROID_IMAGE_FOLDER:imx8mq-var-dart = "DART-MX8M"
