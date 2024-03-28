@@ -2,7 +2,7 @@
 
 IMAGE_LINGUAS = ""
 IMAGE_INSTALL = ""
-inherit core-image image nativeaptinstall features_check
+inherit core-image image nativeaptinstall features_check yoctopkgsprotect
 export PACKAGE_INSTALL = "${IMAGE_INSTALL}"
 
 PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
@@ -10,6 +10,7 @@ PV = "${@d.getVar('PREFERRED_VERSION_debian-base', True) or '1.0'}"
 ROOTFS_POSTPROCESS_COMMAND:prepend = " \
 	do_fix_ldconfig; \
 	do_compare_rootfs; \
+	do_yoctopkgs_protect; \
 	do_aptget_update; \
 	do_update_host; \
 	do_update_root_passwd; \
