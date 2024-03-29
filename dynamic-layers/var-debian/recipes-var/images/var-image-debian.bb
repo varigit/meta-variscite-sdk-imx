@@ -165,6 +165,7 @@ BB_WESTON_PKGS = " \
 	weston \
 	weston-examples \
 	weston-xwayland \
+	wayland-tools \
 	wayland-protocols \
 "
 
