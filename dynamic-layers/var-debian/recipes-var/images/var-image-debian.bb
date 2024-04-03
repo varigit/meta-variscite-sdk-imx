@@ -35,12 +35,6 @@ IMAGE_FEATURES += " \
 	   '', d), d)} \
 "
 
-APTGET_BT_PKGS = " \
-	libasound2-plugin-bluez \
-	libc6 \
-	expect \
-"
-
 # Packages to be installed by Debian
 APTGET_EXTRA_PACKAGES += "\
 	apt \
@@ -49,6 +43,8 @@ APTGET_EXTRA_PACKAGES += "\
 	squashfs-tools \
 	bluez \
 	bluez-tools \
+	pulseaudio \
+	pulseaudio-module-bluetooth \
 	docker-compose \
 	docker.io \
 	gpiod \
@@ -71,7 +67,6 @@ APTGET_EXTRA_PACKAGES += "\
 	lvm2 \
 	can-utils \
 	v4l-utils \
-	${APTGET_BT_PKGS} \
 	console-setup locales \
 	vim \
 	ethtool wget ftp iputils-ping \
@@ -199,7 +194,6 @@ IMAGE_INSTALL += " \
 	spidev-test \
 	udev udev-extraconf \
 	alsa-state \
-	bluealsa \
 	${BB_ML_PKGS} \
 	${BB_CAMERA_PKGS} \
 	${BB_GSTREAMER_PKGS} \
@@ -255,6 +249,27 @@ install_obex_service() {
 	ln -sf "${libdir}/systemd/system/obex.service" "${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/obex.service"
 }
 
+# Install PulseAudio system-wide mode service
+install_pulseaudio_service() {
+	local files_dir="${TOPDIR}/../sources/meta-variscite-debian/recipes-multimedia/pulseaudio/pulseaudio"
+
+	# Add users to pulse-access group (FIXME: Consider extra custom users, too)
+	sed -i '/^pulse-access:/ s/$/root,user/' ${IMAGE_ROOTFS}${sysconfdir}/group
+	# Update home of pulse
+	sed -i 's/\/run\/pulse/\/var\/run\/pulse/g' ${IMAGE_ROOTFS}${sysconfdir}/passwd
+	# Disable user mode service
+	rm -rf ${IMAGE_ROOTFS}${sysconfdir}/systemd/user/sockets.target.wants/pulseaudio.socket
+	rm -rf ${IMAGE_ROOTFS}${sysconfdir}/systemd/user/default.target.wants/pulseaudio.service
+	chmod -x ${IMAGE_ROOTFS}${sysconfdir}/xdg/autostart/pulseaudio.desktop
+	# Enable system-wide mode service
+	install -m 0644 ${files_dir}/pulseaudio.service ${IMAGE_ROOTFS}${base_libdir}/systemd/system
+	ln -snf ${base_libdir}/systemd/system/pulseaudio.service ${IMAGE_ROOTFS}${sysconfdir}/systemd/system/multi-user.target.wants/pulseaudio.service
+	# Install configuration files
+	install -m 0644 ${files_dir}/pulseaudio-bluetooth.conf ${IMAGE_ROOTFS}${sysconfdir}/dbus-1/system.d
+	install -m 0644 ${files_dir}/system.pa ${IMAGE_ROOTFS}${sysconfdir}/pulse/
+	install -m 0644 ${files_dir}/client.conf ${IMAGE_ROOTFS}${sysconfdir}/pulse/
+}
+
 install_wallpaper() {
 	# Install default wallpaper for weston
 	sed -i -e "/^\[shell\]/a background-type=scale-crop" ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
@@ -265,6 +280,7 @@ ROOTFS_POSTPROCESS_COMMAND:append = " \
 	install_wallpaper; \
 	install_obex_service; \
 	install_basefilesissue; \
+	install_pulseaudio_service; \
 	${@bb.utils.contains('IMAGE_INSTALL', 'chromium-ozone-wayland', 'install_chromium; ', '', d)}; \
 "
 
