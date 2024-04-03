@@ -261,7 +261,7 @@ install_wallpaper() {
 	sed -i -e "/^\[shell\]/a background-image=${datadir}/images/desktop-base/default" ${IMAGE_ROOTFS}${sysconfdir}/xdg/weston/weston.ini
 }
 
-ROOTFS_POSTPROCESS_COMMAND:prepend = " \
+ROOTFS_POSTPROCESS_COMMAND:append = " \
 	install_wallpaper; \
 	install_obex_service; \
 	install_basefilesissue; \
