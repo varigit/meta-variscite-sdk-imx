@@ -2,6 +2,7 @@ SUMMARY = "Variscite target Android install for recovery images."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
+DEPENDS = "parted-native"
 RDEPENDS:${PN} = "bash zstd"
 
 ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp__yocto-mickledore-6.1.36_2.1.0-v1.0__android-13.0.0_1.0.0-v1.0.wic"
