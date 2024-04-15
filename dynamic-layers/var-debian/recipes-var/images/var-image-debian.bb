@@ -53,6 +53,7 @@ APTGET_EXTRA_PACKAGES += "\
 	i2c-tools \
 	iw \
 	kmod \
+	pciutils \
 	pm-utils \
 	rng-tools \
 	u-boot-tools \
