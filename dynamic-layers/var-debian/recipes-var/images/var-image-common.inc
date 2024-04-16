@@ -83,6 +83,24 @@ fakeroot do_update_root_passwd() {
 	set +x
 }
 
+KVERSION = "${@oe.utils.read_file('${PKGDATA_DIR}/kernel-depmod/kernel-abiversion')}"
+# nativeaptinstall.bbclass hook to do extra stuff with chroot capabilities
+fakeroot do_aptget_user_update:append() {
+	# Prepare kernel headers to be used out of the box. Use KVERSION
+	# here instead of uname -r (as this would not work offline).
+	if [ -d "${IMAGE_ROOTFS}/lib/modules/${KVERSION}/build" ]; then
+		echo  >"${APTGET_CHROOT_DIR}/preparekernelheaders.sh" "#!/bin/sh"
+		echo >>"${APTGET_CHROOT_DIR}/preparekernelheaders.sh" "BUILDDIR=\"/lib/modules/${KVERSION}/build\""
+		#echo >>"${APTGET_CHROOT_DIR}/preparekernelheaders.sh" "make -C \${BUILDDIR} kernelrelease kernelversion image_name"
+		echo >>"${APTGET_CHROOT_DIR}/preparekernelheaders.sh" "make -C \${BUILDDIR} -j$(nproc) modules_prepare"
+		echo >>"${APTGET_CHROOT_DIR}/preparekernelheaders.sh" "cat \${BUILDDIR}/include/generated/compile.h"
+		#echo >>"${APTGET_CHROOT_DIR}/preparekernelheaders.sh" "cat \${BUILDDIR}/include/generated/utsrelease.h"
+
+		chroot "${APTGET_CHROOT_DIR}" /bin/bash /preparekernelheaders.sh
+		rm -f "${APTGET_CHROOT_DIR}/preparekernelheaders.sh"
+	fi
+}
+
 python do_rootfs:prepend() {
     d.setVar('IMAGE_LOG_CHECK_EXCLUDES', 'Failed')
 }
