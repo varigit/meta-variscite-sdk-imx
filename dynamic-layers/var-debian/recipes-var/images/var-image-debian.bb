@@ -133,6 +133,8 @@ BB_GSTREAMER_PKGS = " \
 BB_G2D_SAMPLES                 = ""
 BB_G2D_SAMPLES:imxgpu2d        = "imx-g2d-samples"
 BB_G2D_SAMPLES:imxdpu          = "imx-g2d-samples"
+BB_GLMARK2                     = ""
+BB_GLMARK2:imxgpu3d            = "glmark2"
 
 # bcm4339 and bcm4339
 BB_BRCM_PKGS = " \
@@ -185,6 +187,7 @@ IMAGE_INSTALL += " \
 	imx-gpu-viv-tools \
 	libgpuperfcnt \
 	${BB_G2D_SAMPLES} \
+	${BB_GLMARK2} \
 	apitrace \
 	gputop \
 	imx-gpu-sdk \
