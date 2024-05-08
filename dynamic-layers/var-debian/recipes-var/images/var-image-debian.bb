@@ -97,6 +97,11 @@ BB_DEBIAN_BASE = "\
 	debian-base-doc \
 "
 
+# Extra base files packages
+BB_EXTRA_BASE_FILES = " \
+	base-files-issue \
+"
+
 # Kernel dev packages
 BB_KERNEL_DEV_PKGS = " \
 	kernel-dev \
@@ -170,6 +175,7 @@ BB_WESTON_PKGS = " \
 # Packages to be installed by Yocto
 IMAGE_INSTALL += " \
 	${BB_DEBIAN_BASE} \
+	${BB_EXTRA_BASE_FILES} \
 	${MACHINE_EXTRA_RRECOMMENDS} \
 	libgles1-imx libgles1-imx-dev \
 	libgles2-imx libgles2-imx-dev \
@@ -283,7 +289,6 @@ install_wallpaper() {
 ROOTFS_POSTPROCESS_COMMAND:append = " \
 	install_wallpaper; \
 	install_obex_service; \
-	install_basefilesissue; \
 	install_pulseaudio_service; \
 	${@bb.utils.contains('IMAGE_INSTALL', 'chromium-ozone-wayland', 'install_chromium; ', '', d)}; \
 "
