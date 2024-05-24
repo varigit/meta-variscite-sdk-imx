@@ -35,6 +35,17 @@ IMAGE_FEATURES += " \
 	   '', d), d)} \
 "
 
+VAR_TEST_APT_PACKAGES = "\
+	file \
+	evtest \
+	wget \
+	psmisc \
+	expect \
+	screen \
+	ifupdown \
+	sshpass \
+"
+
 # Packages to be installed by Debian
 APTGET_EXTRA_PACKAGES += "\
 	apt \
@@ -78,6 +89,7 @@ APTGET_EXTRA_PACKAGES += "\
 	python-is-python3 \
 	netplan.io \
 	network-manager \
+	${VAR_TEST_APT_PACKAGES} \
 "
 
 ##############################################################################
