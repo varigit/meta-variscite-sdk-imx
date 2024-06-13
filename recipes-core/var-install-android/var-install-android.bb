@@ -5,9 +5,9 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 DEPENDS = "parted-native"
 RDEPENDS:${PN} = "bash zstd"
 
-ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp__yocto-mickledore-6.1.36_2.1.0-v1.0__android-13.0.0_1.0.0-v1.0.wic"
+ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp__yocto-mickledore-6.1.36_2.1.0-v1.2__android-14.0.0_1.0.0-v1.0.wic"
 ANDROID_IMAGE_FOLDER:imx8mp-var-dart = "DART-MX8M-PLUS"
-ANDROID_IMAGE_CKSUM:imx8mp-var-dart = "d2a1e67944db220535adcca42e087fd1bd3de9177156eb271a09ffef3685e918"
+ANDROID_IMAGE_CKSUM:imx8mp-var-dart = "4d8ac44031f09dd62f75ad2af17f0b3ad94ded5fc81404d87c3c8715a2dbcae6"
 
 ANDROID_IMAGE_FILENAME:imx8mm-var-dart = "mx8mm__yocto-mickledore-6.1.36_2.1.0-v1.0__android-13.0.0_1.0.0-v1.0.wic"
 ANDROID_IMAGE_FOLDER:imx8mm-var-dart = "DART-MX8M-MINI"
