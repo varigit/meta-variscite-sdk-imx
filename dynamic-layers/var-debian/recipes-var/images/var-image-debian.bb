@@ -305,5 +305,4 @@ ROOTFS_POSTPROCESS_COMMAND:append = " \
 	${@bb.utils.contains('IMAGE_INSTALL', 'chromium-ozone-wayland', 'install_chromium; ', '', d)}; \
 "
 
-IMAGE_INSTALL:append:mx8mp-nxp-bsp = " chromium-ozone-wayland"
-IMAGE_INSTALL:append:mx8mm-nxp-bsp = " chromium-ozone-wayland"
+IMAGE_INSTALL:append:mx8-nxp-bsp = " chromium-ozone-wayland"
