@@ -29,7 +29,6 @@ ML_EXTRA_PKGS:mx8-nxp-bsp = " \
 ML_PKGS:mx9-nxp-bsp = " \
     onnxruntime-tests \
     tensorflow-lite \
-    torchvision \
 "
 # ARM ethos-u package
 ETHOS_U_PKGS = ""
