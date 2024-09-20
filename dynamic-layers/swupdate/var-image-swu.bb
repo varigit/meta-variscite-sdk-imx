@@ -19,7 +19,7 @@ VAR_SWUPDATE_TARGET_IMAGE_FSTYPE = ".tar.zst"
 
 # VAR_SWUPDATE_TARGET_IMAGE_FILE: Expression to resolve packaged filename based
 # on how swupdate packages images in order to update sw-description file
-VAR_SWUPDATE_TARGET_IMAGE_FILE = "${VAR_SWUPDATE_TARGET_IMAGE}-${MACHINE}${VAR_SWUPDATE_TARGET_IMAGE_FSTYPE}"
+VAR_SWUPDATE_TARGET_IMAGE_FILE = "${VAR_SWUPDATE_TARGET_IMAGE}-${MACHINE}.rootfs${VAR_SWUPDATE_TARGET_IMAGE_FSTYPE}"
 
 # IMAGE_DEPENDS: list of Yocto images that contains a root filesystem
 # it will be ensured they are built before creating swupdate image
