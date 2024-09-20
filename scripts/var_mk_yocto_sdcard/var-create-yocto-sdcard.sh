@@ -393,7 +393,7 @@ function install_yocto
 
 	echo
 	echo "Installing Yocto Root File System"
-	pv ${YOCTO_DEFAULT_IMAGE_PATH}/${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}.${TARBALL_FMT} | tar ${TAR_FLAGS} - -C ${P2_MOUNT_DIR}/
+	pv ${YOCTO_DEFAULT_IMAGE_PATH}/${YOCTO_DEFAULT_IMAGE_BASE_IN_NAME}.rootfs.${TARBALL_FMT} | tar ${TAR_FLAGS} - -C ${P2_MOUNT_DIR}/
 	sync
 }
 
@@ -432,8 +432,8 @@ function copy_images
 	fi
 
 	# Copy image for eMMC
-	if [ -f ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.${TARBALL_FMT} ]; then
-		pv ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.${TARBALL_FMT} > ${P2_MOUNT_DIR}/opt/images/Yocto/${TARBALL_BASENAME}.${TARBALL_FMT}
+	if [ -f ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.rootfs.${TARBALL_FMT} ]; then
+		pv ${YOCTO_RECOVERY_ROOTFS_PATH}/${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME}.rootfs.${TARBALL_FMT} > ${P2_MOUNT_DIR}/opt/images/Yocto/${TARBALL_BASENAME}.${TARBALL_FMT}
 	else
 		echo "${TARBALL_BASENAME}.${TARBALL_FMT} file is not present. Installation on \"eMMC\" will not be supported."
 	fi
