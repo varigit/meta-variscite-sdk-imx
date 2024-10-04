@@ -13,11 +13,6 @@ inherit core-image
 ###          to provide a way for users to reproduce the image used during
 ###          the validation process of i.MX BSP releases.
 
-# Add machine learning for certain SoCs
-ML_PKGS                   ?= ""
-ML_PKGS:mx8-nxp-bsp                = "packagegroup-var-ml"
-ML_PKGS:mx9-nxp-bsp                = "packagegroup-var-ml"
-
 # Add docker packages for Variscite SoMs with eMMC
 DOCKER_PKGS			?= ""
 DOCKER_PKGS:mx8-nxp-bsp		= "${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'docker-moby python3-docker-compose', '', d)}"
@@ -49,6 +44,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-fsl-gstreamer1.0 \
 	packagegroup-fsl-gstreamer1.0-full \
 	packagegroup-fsl-isp \
+	packagegroup-variscite-imx-ml \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xterm', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', 'weston-xwayland', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-init', \
@@ -60,7 +56,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	openssh-sftp-server \
 	libgpiod \
 	libgpiod-tools \
-	${ML_PKGS} \
 	${SEC_PKGS} \
 	${DOCKER_PKGS} \
 "
