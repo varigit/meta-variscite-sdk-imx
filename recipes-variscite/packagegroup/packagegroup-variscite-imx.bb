@@ -7,6 +7,8 @@ inherit packagegroup
 PACKAGES = "\
     ${PN}-docker \
     ${PN}-ml \
+    ${PN}-security \
+"
 
 RDEPENDS:${PN}-docker:mx8-nxp-bsp = "\
     docker-moby \
@@ -34,4 +36,10 @@ RDEPENDS:${PN}-ml:mx9-nxp-bsp = "\
     python3-requests \
     python3-sympy \
     packagegroup-imx-ml \
+"
+
+RDEPENDS:${PN}-security = "\
+    keyctl-caam \
+    keyutils \
+    lvm2 \
 "

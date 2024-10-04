@@ -13,9 +13,6 @@ inherit core-image
 ###          to provide a way for users to reproduce the image used during
 ###          the validation process of i.MX BSP releases.
 
-# Add security packages
-SEC_PKGS                   = "packagegroup-var-security"
-
 IMAGE_FEATURES += " \
     splash \
     ssh-server-dropbear \
@@ -40,6 +37,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-fsl-gstreamer1.0-full \
 	packagegroup-fsl-isp \
 	packagegroup-variscite-imx-ml \
+	packagegroup-variscite-imx-security \
 	${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-variscite-imx-docker', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xterm', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', 'weston-xwayland', '', d)} \
@@ -52,7 +50,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	openssh-sftp-server \
 	libgpiod \
 	libgpiod-tools \
-	${SEC_PKGS} \
 "
 
 # only for Android enabled machines
