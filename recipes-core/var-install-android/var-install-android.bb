@@ -3,7 +3,6 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 DEPENDS = "parted-native"
-RDEPENDS:${PN} = "bash zstd"
 
 ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp__yocto-mickledore-6.1.36_2.1.0-v1.2__android-14.0.0_1.0.0-v1.0.wic"
 ANDROID_IMAGE_FOLDER:imx8mp-var-dart = "DART-MX8M-PLUS"
@@ -34,20 +33,24 @@ SRC_URI = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IM
 SRC_URI:imx8mq-var-dart = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.gz;sha256sum=${ANDROID_IMAGE_CKSUM}"
 
 do_install() {
-	install -d ${D}${bindir}
-	install -d ${D}/opt/images
-	wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:1${bindir}/install_android.sh ${D}${bindir}/install_android.sh
-	chmod 755 ${D}${bindir}/install_android.sh
-	chown root:root ${D}${bindir}/install_android.sh
-	wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:1/opt/images/Android ${D}/opt/images/
-	chown -R root:root ${D}/opt/images/Android
+    install -d ${D}${bindir}
+    install -d ${D}/opt/images
+    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:1${bindir}/install_android.sh ${D}${bindir}/install_android.sh
+    chmod 755 ${D}${bindir}/install_android.sh
+    chown root:root ${D}${bindir}/install_android.sh
+    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:1/opt/images/Android ${D}/opt/images/
+    chown -R root:root ${D}/opt/images/Android
 }
 
 FILES:${PN} = "\
-	${bindir}/install_android.sh \
-	/opt/images/Android/* \
+    ${bindir}/install_android.sh \
+    /opt/images/Android/* \
 "
-
 INSANE_SKIP:${PN} += "arch"
+
+RDEPENDS:${PN} = "\
+    bash \
+    zstd \
+"
 
 COMPATIBLE_MACHINE = "mx8-nxp-bsp"
