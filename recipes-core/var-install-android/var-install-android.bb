@@ -49,7 +49,13 @@ FILES:${PN} = "\
 INSANE_SKIP:${PN} += "arch"
 
 RDEPENDS:${PN} = "\
+    android-tools \
+    android-tools-adbd \
+    android-tools-fstools \
     bash \
+    e2fsprogs-mke2fs \
+    e2fsprogs-e2fsck \
+    f2fs-tools \
     zstd \
 "
 

@@ -45,15 +45,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-init', \
 	   bb.utils.contains('DISTRO_FEATURES',     'x11', 'packagegroup-core-x11-sato-games', \
 							 '', d), d)} \
-
-# only for Android enabled machines
-IMAGE_INSTALL:append:imxgpu3d = " \
-	android-tools \
-	android-tools-adbd \
-	android-tools-fstools \
-	f2fs-tools \
-"
-
 "
 
 CORE_IMAGE_EXTRA_INSTALL:append:mx8-nxp-bsp = "\
