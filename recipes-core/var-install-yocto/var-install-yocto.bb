@@ -24,6 +24,8 @@ FILES:${PN} = "\
 
 RDEPENDS:${PN} = "\
     bash \
+    e2fsprogs-e2fsck \
+    e2fsprogs-mke2fs \
     zstd \
 "
 
