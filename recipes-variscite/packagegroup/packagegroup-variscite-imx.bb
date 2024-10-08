@@ -5,9 +5,24 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit packagegroup
 
 PACKAGES = "\
+    ${PN}-devel \
     ${PN}-docker \
     ${PN}-ml \
     ${PN}-security \
+"
+
+RDEPENDS:${PN}-devel = "\
+    libgpiod \
+    libgpiod-tools \
+    nodejs \
+    openssh-sftp-server \
+    screen \
+    tcf-agent \
+"
+
+# Only for DRM enabled machines
+RDEPENDS:${PN}-devel:append:imxdrm = " \
+    libdrm-tests \
 "
 
 RDEPENDS:${PN}-docker:mx8-nxp-bsp = "\

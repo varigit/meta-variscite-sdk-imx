@@ -39,18 +39,12 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-variscite-imx-ml \
 	packagegroup-variscite-imx-security \
 	${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-variscite-imx-docker', '', d)} \
+	packagegroup-variscite-imx-devel \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'xterm', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'x11 wayland', 'weston-xwayland', '', d)} \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-init', \
 	   bb.utils.contains('DISTRO_FEATURES',     'x11', 'packagegroup-core-x11-sato-games', \
 							 '', d), d)} \
-	nodejs \
-	screen \
-	tcf-agent \
-	openssh-sftp-server \
-	libgpiod \
-	libgpiod-tools \
-"
 
 # only for Android enabled machines
 IMAGE_INSTALL:append:imxgpu3d = " \
@@ -60,9 +54,6 @@ IMAGE_INSTALL:append:imxgpu3d = " \
 	f2fs-tools \
 "
 
-# only for DRM enabled machines
-IMAGE_INSTALL:append:imxdrm = " \
-	libdrm-tests \
 "
 
 CORE_IMAGE_EXTRA_INSTALL:append:mx8-nxp-bsp = "\
