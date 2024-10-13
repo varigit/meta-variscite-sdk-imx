@@ -51,6 +51,10 @@ CORE_IMAGE_EXTRA_INSTALL:append:mx8-nxp-bsp = "\
     packagegroup-fsl-tools-gpu \
 "
 
+CORE_IMAGE_EXTRA_INSTALL:append:mx95-nxp-bsp = "\
+    packagegroup-fsl-tools-gpu \
+"
+
 systemd_disable_vt () {
     rm ${IMAGE_ROOTFS}${sysconfdir}/systemd/system/getty.target.wants/getty@tty*.service
 }
