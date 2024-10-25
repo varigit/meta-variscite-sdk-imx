@@ -72,6 +72,38 @@ detect_codec_chip()
 	fi
 }
 
+# Detect if the SOM has a WiFi/BT module
+detect_wifi_is_available()
+{
+	# Read SOM EEPROM info field
+	info=$(i2cget -f -y 0x1 0x51 0xfd)
+
+	# Check WIFI bit in SOM info
+	if [ $((info & 0x4)) -eq 4 ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+# Detect the WiFi/BT module type
+detect_wifi_module()
+{
+	if detect_wifi_is_available; then
+		# Read SOM EEPROM info field
+		info=$(i2cget -f -y 0x1 0x51 0xfd)
+
+		# Check WIFI module type
+		if [ $(( (info & 0x18) >> 3 )) -le 1 ]; then
+			echo "brcm"
+		else
+			echo "iw61x"
+		fi
+	else
+		echo "n/a"
+	fi
+}
+
 # $1 is the full path of the config file
 set_fw_env_config_to_emmc()
 {
@@ -408,6 +440,7 @@ elif [[ $SOC == i.MX7D ]] ; then
 fi
 
 CODEC=`detect_codec_chip`
+WIFI_MOD=`detect_wifi_module`
 
 while getopts :b:r:v:mu OPTION;
 do
@@ -503,7 +536,17 @@ if [[ $BOARD == *6ul* ]] ; then
 	if [[ $MX6UL_MMC0_DEV == "sd" ]] ; then
 		mx6ul_mmc0_dev="sd-card"
 	elif [[ $MX6UL_MMC0_DEV == "wifi" ]] ; then
-		mx6ul_mmc0_dev="wifi"
+		if [[ $som == "var-dart" ]]; then
+			if [[ $WIFI_MOD == "n/a" ]]; then
+				echo "Error: SOM does not have wifi assembled, but the argument '-v wifi' was passed"
+				usage
+				exit 1
+			else
+				mx6ul_mmc0_dev="wifi-$WIFI_MOD"
+			fi
+		else
+			mx6ul_mmc0_dev="wifi"
+		fi
 	fi
 fi
 
