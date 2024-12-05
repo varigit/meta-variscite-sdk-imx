@@ -429,6 +429,8 @@ if [[ $SOC == i.MX6UL* ]] ; then
 	else
 		STORAGE_DEV=emmc
 	fi
+
+	WIFI_MOD=`detect_wifi_module`
 elif [[ $SOC == i.MX7D ]] ; then
 	BOARD=mx7
 
@@ -440,7 +442,6 @@ elif [[ $SOC == i.MX7D ]] ; then
 fi
 
 CODEC=`detect_codec_chip`
-WIFI_MOD=`detect_wifi_module`
 
 while getopts :b:r:v:mu OPTION;
 do
