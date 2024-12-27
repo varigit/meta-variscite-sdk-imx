@@ -36,4 +36,10 @@ RDEPENDS:${PN} += " \
 "
 
 # openthread should be provided by ot-daemon_git.bb
-RDEPENDS:${PN}:remove = "packagegroup-nxp-openthread"
+# matter no needed without nxpiw612-sdio features
+# imx-gpu-viv-demos removed to save space on nand
+RDEPENDS:${PN}:remove = "\
+    "packagegroup-nxp-openthread" \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'nxpiw612-sdio', '', 'packagegroup-nxp-matter-baseline', d)} \
+    ${@bb.utils.contains('MACHINE_FEATURES', 'nand-flash', 'imx-gpu-viv-demos', '', d)} \
+"
