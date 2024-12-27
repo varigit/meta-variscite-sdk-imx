@@ -22,4 +22,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 "
 
 QBSP_IMAGE_CONTENT = ""
-IMAGE_FSTYPES = "tar.zst"
+
+# Due to the SWUpdate image will not fit the default NAND size.
+# Removing default ubi creation for this image
+IMAGE_FSTYPES:remove = "multiubi"
