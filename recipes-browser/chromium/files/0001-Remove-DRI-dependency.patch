@@ -1,0 +1,27 @@
+From b8d0552ab7c423246adf4378d95e5e1d6ae684f5 Mon Sep 17 00:00:00 2001
+From: Luan Rafael Carneiro <luan.r@variscite.com>
+Date: Thu, 9 Jan 2025 13:21:21 -0300
+Subject: [PATCH] Remove DRI dependency
+
+Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
+---
+ media/gpu/sandbox/BUILD.gn | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/media/gpu/sandbox/BUILD.gn b/media/gpu/sandbox/BUILD.gn
+index cfcb7fa80..c7a9bd11c 100644
+--- a/media/gpu/sandbox/BUILD.gn
++++ b/media/gpu/sandbox/BUILD.gn
+@@ -30,9 +30,4 @@ source_set("sandbox") {
+   if (use_v4l2_codec) {
+     deps += [ "//media/gpu/v4l2" ]
+   }
+-  if (current_cpu != "s390x" && current_cpu != "ppc64" && is_linux &&
+-      !is_castos) {
+-    # For DRI_DRIVER_DIR.
+-    configs += [ "//build/config/linux/dri" ]
+-  }
+ }
+-- 
+2.44.1
+
