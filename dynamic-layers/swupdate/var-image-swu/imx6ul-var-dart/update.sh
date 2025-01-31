@@ -59,7 +59,7 @@ if [ "$1" = "postinst" ]; then
 		ln -sf u-boot-initial-env-sd ${TMPDIR}/datadst/etc/u-boot-initial-env
 		sed -i "/mtd/ s/^#*/#/" ${TMPDIR}/datadst/etc/fw_env.config
 		CURRENT_BLK_DEV="${CURRENT_ROOT%p?}"
-		sed -i "s/\/dev\/mmcblk./$(echo ${CURRENT_BLK_DEV} | sed 's_/_\\/_g')/" ${TMPDIR}/datadst/etc/fw_env.config
+		sed -i "s/^#*\/dev\/mmcblk./$(echo ${CURRENT_BLK_DEV} | sed 's_/_\\/_g')/" ${TMPDIR}/datadst/etc/fw_env.config
 		umount /dev/update
 	fi
 
