@@ -9,11 +9,12 @@ SRC_URI += "\
 	file://background.jpg \
 	file://favicon.png \
 	file://logo.png \
-	file://swupdate.cfg \
+	file://swupdate.cfg.template \
 	${SYSTEMD_SRC_URI} \
 "
 
 do_cfg_process() {
+	sed -e 's/@@MACHINE_NAME@@/${MACHINE}/' ${WORKDIR}/swupdate.cfg.template > ${WORKDIR}/swupdate.cfg
 	echo "${MACHINE} 1.0" > ${WORKDIR}/hwrevision
 }
 
