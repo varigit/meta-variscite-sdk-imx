@@ -1,5 +1,7 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
+SYSTEMD_SRC_URI = "${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'file://systemd.cfg', '', d)}"
+
 SRC_URI += "\
 	file://01_lc_type.conf \
 	file://10_platf_env.conf \
@@ -8,6 +10,7 @@ SRC_URI += "\
 	file://favicon.png \
 	file://logo.png \
 	file://swupdate.cfg \
+	${SYSTEMD_SRC_URI} \
 "
 
 do_cfg_process() {
