@@ -52,6 +52,12 @@ if [[ "$DISTRO" == *"fsl-imx"* ]] || [[ "$DISTRO" == *"var-debian-xwayland"* ]];
     awk -i inplace '!/meta-qt5/' conf/bblayers.conf
     # Remove apt package management
     awk -i inplace '!/package-management/' conf/local.conf
+
+    # Enable buildhistory
+    echo "" >> conf/local.conf
+    echo '# Enable buildhistory' >> conf/local.conf
+    echo 'INHERIT += "buildhistory"' >> conf/local.conf
+    echo 'BUILDHISTORY_COMMIT = "1"' >> conf/local.conf
 else
     MACHINE=${MACHINE} DISTRO=${DISTRO} . setup-environment ${BUILD_DIR}
 fi
