@@ -52,6 +52,12 @@ fi
 if [ "$1" = "postinst" ]; then
 	get_current_root_device
 
+	# set TMPDIR to /tmp if it is not already set
+	TMPDIR=${TMPDIR:=/tmp}
+
+	# Create the mount point if it doesn't exist
+	mkdir -p ${TMPDIR}/datadst
+
 	if [ ! -d "/sys/kernel/debug/gpmi-nand" ]; then
 		# Adjust u-boot-fw-utils for eMMC on the installed rootfs
 		mount -t ext4 /dev/update ${TMPDIR}/datadst

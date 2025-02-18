@@ -53,6 +53,9 @@ fi
 if [ "$1" = "postinst" ]; then
 	get_current_root_device
 
+	# set TMPDIR to /tmp if it is not already set
+	TMPDIR=${TMPDIR:=/tmp}
+
 	# Create the mount point if it doesn't exist
 	mkdir -p ${TMPDIR}/datadst
 
