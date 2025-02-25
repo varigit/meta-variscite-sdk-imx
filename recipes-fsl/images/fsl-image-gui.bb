@@ -35,7 +35,7 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	packagegroup-fsl-tools-benchmark \
 	packagegroup-fsl-gstreamer1.0 \
 	packagegroup-fsl-gstreamer1.0-full \
-	packagegroup-fsl-isp \
+	packagegroup-imx-isp \
 	packagegroup-variscite-imx-ml \
 	packagegroup-variscite-imx-security \
 	${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'packagegroup-variscite-imx-docker', '', d)} \
