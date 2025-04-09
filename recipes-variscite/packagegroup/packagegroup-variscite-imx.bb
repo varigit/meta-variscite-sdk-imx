@@ -18,7 +18,6 @@ RDEPENDS:${PN}-docker = "\
 # Machine Learning package for i.MX8 machines
 RDEPENDS:${PN}-ml:mx8-nxp-bsp = "\
     python3-opencv \
-    python3-pip \
     python3-requests \
     python3-sympy \
     packagegroup-imx-ml \
@@ -27,7 +26,6 @@ RDEPENDS:${PN}-ml:mx8-nxp-bsp = "\
 # Machine Learning package for i.MX9 machines
 RDEPENDS:${PN}-ml:mx9-nxp-bsp = "\
     python3-opencv \
-    python3-pip \
     python3-requests \
     python3-sympy \
     packagegroup-imx-ml \
