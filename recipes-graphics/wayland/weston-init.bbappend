@@ -11,6 +11,8 @@ INI_UNCOMMENT_ASSIGNMENTS:append:mx6-nxp-bsp = " \
     use-g2d=1 \
 "
 
+PACKAGECONFIG:append:imx91-var-som = " use-pixman"
+
 WATCHDOG_SEC = "40"
 
 # same as update_file in meta-imx, but warn instead of error
