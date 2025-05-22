@@ -503,10 +503,6 @@ function copy_scripts
 			if ! ls ${P2_MOUNT_DIR}/opt/images/Yocto/rootfs*.ubi &> /dev/null; then
 				rm -rf ${P2_MOUNT_DIR}/usr/share/applications/${MACHINE}*yocto*nand*.desktop
 			fi
-
-			if [[ ${YOCTO_RECOVERY_ROOTFS_BASE_IN_NAME} == var-image-swupdate* ]]; then
-				sed -i 's/install_yocto.sh/& -u/' ${P2_MOUNT_DIR}/usr/share/applications/${MACHINE}*yocto*.desktop
-			fi
 		fi
 	fi
 }
