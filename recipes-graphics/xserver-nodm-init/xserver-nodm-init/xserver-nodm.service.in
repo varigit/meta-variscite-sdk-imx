@@ -1,0 +1,18 @@
+[Unit]
+Description=Xserver startup without a display manager
+
+[Service]
+EnvironmentFile=/etc/default/xserver-nodm
+User=@USER@
+ExecStart=/etc/xserver-nodm/Xserver
+Restart=always
+# give X server a higher priority. Otherwise the parallel start of many systemd units will cause
+# the display to go black for some seconds
+Nice=-15
+CPUSchedulingPolicy=rr
+CPUSchedulingPriority=99
+IOSchedulingClass=realtime
+
+
+[Install]
+Alias=display-manager.service
