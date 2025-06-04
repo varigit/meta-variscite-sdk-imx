@@ -4,6 +4,7 @@ Description=Xserver startup without a display manager
 [Service]
 EnvironmentFile=/etc/default/xserver-nodm
 User=@USER@
+ExecStartPre=/usr/bin/udevadm settle
 ExecStart=/etc/xserver-nodm/Xserver
 Restart=always
 # give X server a higher priority. Otherwise the parallel start of many systemd units will cause
