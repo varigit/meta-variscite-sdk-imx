@@ -55,7 +55,6 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'weston-init', \
 	   bb.utils.contains('DISTRO_FEATURES',     'x11', 'packagegroup-core-x11-sato-games', \
 							 '', d), d)} \
-	nodejs \
 	screen \
 	tcf-agent \
 	openssh-sftp-server \
