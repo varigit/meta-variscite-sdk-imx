@@ -13,11 +13,21 @@ inherit core-image
 ###          to provide a way for users to reproduce the image used during
 ###          the validation process of i.MX BSP releases.
 
+# Since Yocto 5.2 (walnascar) the image feature debug-tweaks as has been deprecated.
+# The following new image features are recommended as a replacement.
+# See: https://docs.yoctoproject.org/migration-guides/migration-5.2.html
+DEBUG_TWEAKS = " \
+    allow-empty-password \
+    allow-root-login \
+    empty-root-password \
+    post-install-logging \
+"
+
 IMAGE_FEATURES += " \
     splash \
     ssh-server-openssh \
     hwcodecs \
-    debug-tweaks \
+    ${DEBUG_TWEAKS} \
     nfs-client \
     tools-debug \
     tools-testapps \
