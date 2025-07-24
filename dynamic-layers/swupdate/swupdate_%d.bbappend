@@ -14,21 +14,21 @@ SRC_URI += "\
 "
 
 do_cfg_process() {
-	sed -e 's/@@MACHINE_NAME@@/${MACHINE}/' ${UNPACKDIR}/swupdate.cfg.template > ${WORKDIR}/swupdate.cfg
-	echo "${MACHINE} 1.0" > ${WORKDIR}/hwrevision
+	sed -e 's/@@MACHINE_NAME@@/${MACHINE}/' ${UNPACKDIR}/swupdate.cfg.template > ${UNPACKDIR}/swupdate.cfg
+	echo "${MACHINE} 1.0" > ${UNPACKDIR}/hwrevision
 }
 
 do_install:append () {
 	install -m 644 ${UNPACKDIR}/background.jpg ${D}/www/images/
 	install -m 644 ${UNPACKDIR}/favicon.png ${D}/www/images/
 	install -m 644 ${UNPACKDIR}/logo.png ${D}/www/images/
-	install -m 644 ${WORKDIR}/swupdate.cfg ${D}${sysconfdir}/
+	install -m 644 ${UNPACKDIR}/swupdate.cfg ${D}${sysconfdir}/
 	install -d ${D}${sysconfdir}/swupdate/
 	install -d ${D}${sysconfdir}/swupdate/conf.d/
 	install -m 644 ${UNPACKDIR}/01_lc_type.conf ${D}${sysconfdir}/swupdate/conf.d/
 	install -m 644 ${UNPACKDIR}/10_platf_env.conf ${D}${sysconfdir}/swupdate/conf.d/
 	install -m 644 ${UNPACKDIR}/80_reboot.conf ${D}${sysconfdir}/swupdate/conf.d/
-	install -m 644 ${WORKDIR}/hwrevision ${D}${sysconfdir}/
+	install -m 644 ${UNPACKDIR}/hwrevision ${D}${sysconfdir}/
 }
 
 addtask cfg_process after do_patch before do_install
