@@ -12,12 +12,12 @@ SRC_URI = " \
 
 do_install() {
 	install -d ${D}${sysconfdir}/weston
-	install -m 0755 ${WORKDIR}/weston-app.sh ${D}/${sysconfdir}/weston
+	install -m 0755 ${UNPACKDIR}/weston-app.sh ${D}/${sysconfdir}/weston
 
 	if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
 		install -d ${D}${systemd_unitdir}/system
 		install -d ${D}${sysconfdir}/systemd/system/multi-user.target.wants
-		install -m 0644 ${WORKDIR}/weston-app.service ${D}/${systemd_unitdir}/system
+		install -m 0644 ${UNPACKDIR}/weston-app.service ${D}/${systemd_unitdir}/system
  
 		ln -sf ${systemd_unitdir}/system/weston-app.service \
 			${D}${sysconfdir}/systemd/system/multi-user.target.wants/weston-app.service
