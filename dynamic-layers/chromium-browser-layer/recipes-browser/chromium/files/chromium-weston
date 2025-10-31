@@ -1,0 +1,4 @@
+#!/bin/sh
+# Helper script to launch Chromium as the user `weston` within a login shell.
+# Intended to be used in weston.ini, where escaping or quoting is not supported.
+exec /usr/sbin/runuser -l weston -c "chromium $@"
