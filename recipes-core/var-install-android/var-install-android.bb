@@ -4,6 +4,10 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 DEPENDS = "parted-native"
 
+ANDROID_IMAGE_FILENAME=""
+ANDROID_IMAGE_FOLDER= ""
+ANDROID_IMAGE_CKSUM=""
+
 ANDROID_IMAGE_FILENAME:var-som-mx6 = "mx6__yocto-kirkstone-5.15.71_2.2.0-v1.0__android-8.0.0_1.0.0-v1.0.wic"
 ANDROID_IMAGE_FOLDER:var-som-mx6 = "VAR-SOM-MX6"
 ANDROID_IMAGE_CKSUM:var-som-mx6 = "e798776110c9b58be5c07d9d0ce0154f2329a9631bbe5537010de88390aa72e8"
@@ -32,7 +36,9 @@ ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8__yocto-mickledore-6.1.22-2.0.0-v1.0
 ANDROID_IMAGE_FOLDER:imx8qm-var-som = "VAR-SOM-MX8"
 ANDROID_IMAGE_CKSUM:imx8qm-var-som = "22b0b98a7d4fdd1cca9d5a8a6ad674b90dd6e40df9526cdc29c82643ca1ea540"
 
-SRC_URI = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
+SRC_URI_ANDROID = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
+SRC_URI = "${@ '${SRC_URI_ANDROID}' if 'android' in (d.getVar('ANDROID_IMAGE_FILENAME') or '') else '' }"
+
 # Machines still with .gz image
 SRC_URI:var-som-mx6 = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.gz;sha256sum=${ANDROID_IMAGE_CKSUM}"
 
@@ -40,13 +46,16 @@ FS_PART = "1"
 FS_PART:var-som-mx6 = "2"
 
 do_install() {
-    install -d ${D}${bindir}
-    install -d ${D}/opt/images
-    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
-    chmod 755 ${D}${bindir}/install_android.sh
-    chown root:root ${D}${bindir}/install_android.sh
-    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
-    chown -R root:root ${D}/opt/images/Android
+
+    if [ ! -z "${SRC_URI}" ]; then
+        install -d ${D}${bindir}
+        install -d ${D}/opt/images
+        wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
+        chmod 755 ${D}${bindir}/install_android.sh
+        chown root:root ${D}${bindir}/install_android.sh
+        wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
+        chown -R root:root ${D}/opt/images/Android
+    fi
 }
 
 do_install:append:var-som-mx6() {
@@ -59,6 +68,8 @@ FILES:${PN} = "\
     ${bindir}/install_android.sh \
     /opt/images/Android/* \
 "
+
+ALLOW_EMPTY:${PN} = "1"
 
 FILES:${PN}:append:var-som-mx6 = "\
     ${bindir}/install_android_emmc.sh \
@@ -77,4 +88,4 @@ RDEPENDS:${PN} = "\
     zstd \
 "
 
-COMPATIBLE_MACHINE = "(mx8-nxp-bsp|var-som-mx6)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp|var-som-mx6|mx95-nxp-bsp)"
