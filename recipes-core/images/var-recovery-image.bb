@@ -55,6 +55,11 @@ IMAGE_INSTALL:append:var-som-mx6 = " \
     ${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
 "
 
+# Install Android files for imx95 machines
+IMAGE_INSTALL:append:mx95-nxp-bsp = " \
+    ${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
+"
+
 # var-recovery can install to NAND, but it is too big to be installed on NAND
 IMAGE_FSTYPES:remove = "multiubi"
 
