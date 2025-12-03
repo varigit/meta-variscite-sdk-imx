@@ -36,6 +36,10 @@ ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8__yocto-mickledore-6.1.22-2.0.0-v1.0
 ANDROID_IMAGE_FOLDER:imx8qm-var-som = "VAR-SOM-MX8"
 ANDROID_IMAGE_CKSUM:imx8qm-var-som = "22b0b98a7d4fdd1cca9d5a8a6ad674b90dd6e40df9526cdc29c82643ca1ea540"
 
+ANDROID_IMAGE_FILENAME:imx95-var-dart = "mx95__yocto-walnascar-6.12.20_2.0.0-v1.3__android-15.0.0_2.0.0-v1.0.wic"
+ANDROID_IMAGE_FOLDER:imx95-var-dart = "DART-MX95"
+ANDROID_IMAGE_CKSUM:imx95-var-dart = "dd163beee7216a461b8f3c0a3a70e918768951043f9151da9127f75da8925bb7"
+
 SRC_URI_ANDROID = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
 SRC_URI = "${@ '${SRC_URI_ANDROID}' if 'android' in (d.getVar('ANDROID_IMAGE_FILENAME') or '') else '' }"
 
@@ -45,21 +49,23 @@ SRC_URI:var-som-mx6 = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/
 FS_PART = "1"
 FS_PART:var-som-mx6 = "2"
 
+S = "${UNPACKDIR}"
+
 do_install() {
 
     if [ ! -z "${SRC_URI}" ]; then
         install -d ${D}${bindir}
         install -d ${D}/opt/images
-        wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
+        wic cp  ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
         chmod 755 ${D}${bindir}/install_android.sh
         chown root:root ${D}${bindir}/install_android.sh
-        wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
+        wic cp  ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
         chown -R root:root ${D}/opt/images/Android
     fi
 }
 
 do_install:append:var-som-mx6() {
-    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android_emmc.sh ${D}${bindir}/install_android_emmc.sh
+    wic cp  ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android_emmc.sh ${D}${bindir}/install_android_emmc.sh
     chmod 755 ${D}${bindir}/install_android_emmc.sh
     chown root:root ${D}${bindir}/install_android_emmc.sh
 }
