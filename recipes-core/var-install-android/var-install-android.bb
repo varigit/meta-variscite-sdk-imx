@@ -4,6 +4,9 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 DEPENDS = "parted-native"
 
+WIC_ENV_DIR = "${WORKDIR}/wic-env"
+WIC_ENV_IMAGE = "var-install-android"
+
 ANDROID_IMAGE_FILENAME=""
 ANDROID_IMAGE_FOLDER= ""
 ANDROID_IMAGE_CKSUM=""
@@ -56,16 +59,23 @@ do_install() {
     if [ ! -z "${SRC_URI}" ]; then
         install -d ${D}${bindir}
         install -d ${D}/opt/images
-        wic cp  ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
+
+        install -d "${WIC_ENV_DIR}"
+        printf 'WIC_SECTOR_SIZE="None"\n' > "${WIC_ENV_DIR}/${WIC_ENV_IMAGE}.env"
+
+        wic cp --vars "${WIC_ENV_DIR}" -e "${WIC_ENV_IMAGE}" \
+            ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
         chmod 755 ${D}${bindir}/install_android.sh
         chown root:root ${D}${bindir}/install_android.sh
-        wic cp  ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
+        wic cp --vars "${WIC_ENV_DIR}" -e "${WIC_ENV_IMAGE}" \
+            ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
         chown -R root:root ${D}/opt/images/Android
     fi
 }
 
 do_install:append:var-som-mx6() {
-    wic cp  ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android_emmc.sh ${D}${bindir}/install_android_emmc.sh
+    wic cp --vars "${WIC_ENV_DIR}" -e "${WIC_ENV_IMAGE}" \
+        ${UNPACKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android_emmc.sh ${D}${bindir}/install_android_emmc.sh
     chmod 755 ${D}${bindir}/install_android_emmc.sh
     chown root:root ${D}${bindir}/install_android_emmc.sh
 }
