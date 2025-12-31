@@ -1,0 +1,47 @@
+From 144d07fcd57885c2fcb693b2ee0701b120b2f1e9 Mon Sep 17 00:00:00 2001
+From: Marco Contenti <marco.c@variscite.com>
+Date: Sun, 8 Feb 2026 17:57:15 +0100
+Subject: [PATCH] pipeline: imx8-isi: do not limit resolution to 1920x1080 when
+ recording video
+
+video recording mode is default in gstreamer pipelines
+keep this limitation only in preview mode
+
+Upstream-Status: Pending
+
+Signed-off-by: Marco Contenti <marco.c@variscite.com>
+---
+ src/libcamera/pipeline/imx8-isi/imx8-isi.cpp | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/libcamera/pipeline/imx8-isi/imx8-isi.cpp b/src/libcamera/pipeline/imx8-isi/imx8-isi.cpp
+index 7b009d67..97e7bccb 100644
+--- a/src/libcamera/pipeline/imx8-isi/imx8-isi.cpp
++++ b/src/libcamera/pipeline/imx8-isi/imx8-isi.cpp
+@@ -787,8 +787,8 @@ PipelineHandlerISI::generateConfiguration(Camera *camera,
+ 	for (const auto &role : roles) {
+ 		/*
+ 		 * Prefer the following formats:
+-		 * - Still Capture: Full resolution YUYV
+-		 * - ViewFinder/VideoRecording: 1080p YUYV
++		 * - Still Capture/VideoRecording: Full resolution YUYV
++		 * - ViewFinder: 1080p YUYV
+ 		 * - RAW: Full resolution Bayer
+ 		 */
+ 		StreamConfiguration cfg;
+@@ -797,9 +797,9 @@ PipelineHandlerISI::generateConfiguration(Camera *camera,
+ 		case StreamRole::StillCapture:
+ 		case StreamRole::Viewfinder:
+ 		case StreamRole::VideoRecording: {
+-			Size size = role == StreamRole::StillCapture
+-				  ? data->sensor_->resolution()
+-				  : PipelineHandlerISI::kPreviewSize;
++			Size size = role == StreamRole::Viewfinder
++				  ? kPreviewSize
++				  : data->sensor_->resolution();
+ 			cfg = generateYUVConfiguration(camera, size);
+ 			if (cfg.pixelFormat.isValid())
+ 				break;
+-- 
+2.34.1
+
