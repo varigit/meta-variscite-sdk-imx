@@ -2,66 +2,65 @@ SUMMARY = "Variscite target Android install for recovery images."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-DEPENDS = "parted-native"
+DEPENDS = "\
+    tar-native \
+    zstd-native \
+"
 
-ANDROID_IMAGE_FILENAME:var-som-mx6 = "mx6__yocto-kirkstone-5.15.71_2.2.0-v1.0__android-8.0.0_1.0.0-v1.0.wic"
+ANDROID_IMAGE_FILENAME:var-som-mx6 = "mx6-android-8.0.0_1.0.0-v1.0"
 ANDROID_IMAGE_FOLDER:var-som-mx6 = "VAR-SOM-MX6"
-ANDROID_IMAGE_CKSUM:var-som-mx6 = "e798776110c9b58be5c07d9d0ce0154f2329a9631bbe5537010de88390aa72e8"
+ANDROID_IMAGE_CKSUM:var-som-mx6 = "c1ac5bec9465834dfc8114a8f65c2f95e7632f0fbb53dc6d4fca3f8f409193c0"
 
-ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp__yocto-scarthgap-6.6.52_2.2.0-v1.1__android-15.0.0_1.2.0-v1.0.wic"
+ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp-android-15.0.0_1.2.0-v1.0"
 ANDROID_IMAGE_FOLDER:imx8mp-var-dart = "DART-MX8M-PLUS"
-ANDROID_IMAGE_CKSUM:imx8mp-var-dart = "4e1f765028b84c5ad47f3eb81cbee9fe9abf04bb5353ff2511881ff53ea4f1d1"
+ANDROID_IMAGE_CKSUM:imx8mp-var-dart = "ab5875cf0b4cd43a8bc3ac85046ff872e06bd52bf17d41d4eda39f3b6934b74e"
 
-ANDROID_IMAGE_FILENAME:imx8mm-var-dart = "mx8mm__yocto-scarthgap-6.6.52_2.2.0-v1.0__android-14.0.0_1.0.0-v1.3.wic"
+ANDROID_IMAGE_FILENAME:imx8mm-var-dart = "mx8mm-android-14.0.0_1.0.0-v1.3"
 ANDROID_IMAGE_FOLDER:imx8mm-var-dart = "DART-MX8M-MINI"
-ANDROID_IMAGE_CKSUM:imx8mm-var-dart = "ca9f9b778286331f4c763d51cabb2e3884a87b595d92a98fab0eec1aaef34da3"
+ANDROID_IMAGE_CKSUM:imx8mm-var-dart = "e551f313eb929f47e9cd55245335921883481817075878f752e415697721b21b"
 
-ANDROID_IMAGE_FILENAME:imx8mn-var-som = "mx8mn__yocto-scarthgap-6.6.52_2.2.0-v1.2__android-14.0.0_1.0.0-v1.1.wic"
+ANDROID_IMAGE_FILENAME:imx8mn-var-som = "mx8mn-android-14.0.0_1.0.0-v1.1"
 ANDROID_IMAGE_FOLDER:imx8mn-var-som = "VAR-SOM-MX8M-NANO"
-ANDROID_IMAGE_CKSUM:imx8mn-var-som = "b9951417d93e89fbb9c94fff49543ac7c186664efffdc10f5e52832d863aa7bf"
+ANDROID_IMAGE_CKSUM:imx8mn-var-som = "50c2a30a405c858743e04edc1c0c14650c9ddc3977380fae2c7cef4daa5669bf"
 
-ANDROID_IMAGE_FILENAME:imx8mq-var-dart = "mx8m__yocto-mickledore-6.1.36_2.1.0-v1.0__android-13.0.0_1.2.0-v1.2.wic"
+ANDROID_IMAGE_FILENAME:imx8mq-var-dart = "mx8m-android-13.0.0_1.2.0-v1.2"
 ANDROID_IMAGE_FOLDER:imx8mq-var-dart = "DART-MX8M"
-ANDROID_IMAGE_CKSUM:imx8mq-var-dart = "cfd6b87e8fe5c585f3da6d45258609354d9f972e68f4350becbc6bd32bdf12b4"
+ANDROID_IMAGE_CKSUM:imx8mq-var-dart = "2eef5079060fe12c2e63ca70fdb016e5cf5beccc8e469b6a3f5784133fdbc232"
 
-ANDROID_IMAGE_FILENAME:imx8qxp-var-som = "mx8x__yocto-mickledore-6.1.36-2.1.0-v1.0__android-13.0.0_1.2.0-v1.0.wic"
+ANDROID_IMAGE_FILENAME:imx8qxp-var-som = "mx8x-android-13.0.0_1.2.0-v1.0"
 ANDROID_IMAGE_FOLDER:imx8qxp-var-som = "VAR-SOM-MX8X"
-ANDROID_IMAGE_CKSUM:imx8qxp-var-som = "ee91ac2c0c31822ea15352d2f79d1a768710f9c48d77dced40d58be013d0533f"
+ANDROID_IMAGE_CKSUM:imx8qxp-var-som = "66b0d07ec116e822a8b7ecf16dd016c0c78230476785b896360ad5a3962049e2"
 
-ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8__yocto-mickledore-6.1.22-2.0.0-v1.0__android-13.0.0_1.2.0-v1.0.wic"
+ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8-android-13.0.0_1.2.0-v1.0"
 ANDROID_IMAGE_FOLDER:imx8qm-var-som = "VAR-SOM-MX8"
-ANDROID_IMAGE_CKSUM:imx8qm-var-som = "22b0b98a7d4fdd1cca9d5a8a6ad674b90dd6e40df9526cdc29c82643ca1ea540"
+ANDROID_IMAGE_CKSUM:imx8qm-var-som = "00144010765f61546c9495c09f2cf9dad5d5e6b605be7470af6f1bb48ed3b70e"
 
-SRC_URI = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
-# Machines still with .gz image
-SRC_URI:var-som-mx6 = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/${ANDROID_IMAGE_FILENAME}.gz;sha256sum=${ANDROID_IMAGE_CKSUM}"
+SRC_URI = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/android/${ANDROID_IMAGE_FILENAME}.tar.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
 
-FS_PART = "1"
-FS_PART:var-som-mx6 = "2"
+S = "${WORKDIR}/android-artifacts"
+
+INSTALL_ANDROID_SCRIPT = "mx8_install_android.sh"
+INSTALL_ANDROID_SCRIPT:var-som-mx6 = "install_android_emmc.sh"
+
+INSTALL_ANDROID_SCRIPT_TARGET = "install_android.sh"
+INSTALL_ANDROID_SCRIPT_TARGET:var-som-mx6 = "install_android_emmc.sh"
 
 do_install() {
-    install -d ${D}${bindir}
-    install -d ${D}/opt/images
-    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android.sh ${D}${bindir}/install_android.sh
-    chmod 755 ${D}${bindir}/install_android.sh
-    chown root:root ${D}${bindir}/install_android.sh
-    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}/opt/images/Android ${D}/opt/images/
+    install -d ${D}/opt/images/Android
+    install -Dm 0755  ${S}/scripts/${INSTALL_ANDROID_SCRIPT} ${D}${bindir}/${INSTALL_ANDROID_SCRIPT_TARGET}
+    cp -a ${S}/android/* ${D}/opt/images/Android
     chown -R root:root ${D}/opt/images/Android
-}
 
-do_install:append:var-som-mx6() {
-    wic cp  ${WORKDIR}/${ANDROID_IMAGE_FILENAME}:${FS_PART}${bindir}/install_android_emmc.sh ${D}${bindir}/install_android_emmc.sh
-    chmod 755 ${D}${bindir}/install_android_emmc.sh
-    chown root:root ${D}${bindir}/install_android_emmc.sh
+    tar -cf - android | zstd -19 -T0 -f -o ${PN}.tar.zst
+
+    install -Dm 0644 ${S}/${PN}.tar.zst ${DEPLOY_DIR_IMAGE}/${PN}.tar.zst
+    cd ${DEPLOY_DIR_IMAGE}
+    ln -sf ${PN}.tar.zst ${DEPLOY_DIR_IMAGE}/${PN}-${MACHINE}.tar.zst
 }
 
 FILES:${PN} = "\
-    ${bindir}/install_android.sh \
+    ${bindir}/${INSTALL_ANDROID_SCRIPT_TARGET} \
     /opt/images/Android/* \
-"
-
-FILES:${PN}:append:var-som-mx6 = "\
-    ${bindir}/install_android_emmc.sh \
 "
 
 INSANE_SKIP:${PN} += "arch"
