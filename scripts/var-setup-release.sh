@@ -47,7 +47,6 @@ if [[ "$DISTRO" == *"fsl-imx"* ]] || [[ "$DISTRO" == *"var-debian-xwayland"* ]];
     awk -i inplace '/meta-python2/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-gnome/&&c++>0 {next} 1' conf/bblayers.conf
     awk -i inplace '/meta-virtualization/&&c++>0 {next} 1' conf/bblayers.conf
-    awk -i inplace '!/meta-qt5/' conf/bblayers.conf
     # Remove apt package management
     awk -i inplace '!/package-management/' conf/local.conf
 
