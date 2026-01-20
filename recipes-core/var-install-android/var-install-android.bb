@@ -7,6 +7,10 @@ DEPENDS = "\
     zstd-native \
 "
 
+SRC_URI = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/android/${ANDROID_IMAGE_FILENAME}.tar.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
+
+S = "${WORKDIR}/android-artifacts"
+
 ANDROID_IMAGE_FILENAME:var-som-mx6 = "mx6-android-8.0.0_1.0.0-v1.0"
 ANDROID_IMAGE_FOLDER:var-som-mx6 = "VAR-SOM-MX6"
 ANDROID_IMAGE_CKSUM:var-som-mx6 = "c1ac5bec9465834dfc8114a8f65c2f95e7632f0fbb53dc6d4fca3f8f409193c0"
@@ -35,10 +39,6 @@ ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8-android-13.0.0_1.2.0-v1.0"
 ANDROID_IMAGE_FOLDER:imx8qm-var-som = "VAR-SOM-MX8"
 ANDROID_IMAGE_CKSUM:imx8qm-var-som = "00144010765f61546c9495c09f2cf9dad5d5e6b605be7470af6f1bb48ed3b70e"
 
-SRC_URI = "https://variscite-public.nyc3.cdn.digitaloceanspaces.com/${ANDROID_IMAGE_FOLDER}/Software/android/${ANDROID_IMAGE_FILENAME}.tar.zst;sha256sum=${ANDROID_IMAGE_CKSUM}"
-
-S = "${WORKDIR}/android-artifacts"
-
 INSTALL_ANDROID_SCRIPT = "mx8_install_android.sh"
 INSTALL_ANDROID_SCRIPT:var-som-mx6 = "install_android_emmc.sh"
 
@@ -63,8 +63,6 @@ FILES:${PN} = "\
     /opt/images/Android/* \
 "
 
-INSANE_SKIP:${PN} += "arch"
-
 RDEPENDS:${PN} = "\
     android-tools \
     android-tools-adbd \
@@ -75,5 +73,7 @@ RDEPENDS:${PN} = "\
     f2fs-tools \
     zstd \
 "
+
+INSANE_SKIP:${PN} += "arch"
 
 COMPATIBLE_MACHINE = "(mx8-nxp-bsp|var-som-mx6)"
