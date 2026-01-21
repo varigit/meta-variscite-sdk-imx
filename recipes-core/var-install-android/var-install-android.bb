@@ -71,6 +71,7 @@ RDEPENDS:${PN} = "\
     e2fsprogs-mke2fs \
     e2fsprogs-e2fsck \
     f2fs-tools \
+    util-linux-sfdisk \
     zstd \
 "
 
