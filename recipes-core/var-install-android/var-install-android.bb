@@ -15,9 +15,9 @@ ANDROID_IMAGE_FILENAME:var-som-mx6 = "mx6-android-8.0.0_1.0.0-v1.0"
 ANDROID_IMAGE_FOLDER:var-som-mx6 = "VAR-SOM-MX6"
 ANDROID_IMAGE_CKSUM:var-som-mx6 = "c1ac5bec9465834dfc8114a8f65c2f95e7632f0fbb53dc6d4fca3f8f409193c0"
 
-ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp-android-15.0.0_1.2.0-v1.0"
+ANDROID_IMAGE_FILENAME:imx8mp-var-dart = "mx8mp-android-15.0.0_1.2.0-v1.1"
 ANDROID_IMAGE_FOLDER:imx8mp-var-dart = "DART-MX8M-PLUS"
-ANDROID_IMAGE_CKSUM:imx8mp-var-dart = "ab5875cf0b4cd43a8bc3ac85046ff872e06bd52bf17d41d4eda39f3b6934b74e"
+ANDROID_IMAGE_CKSUM:imx8mp-var-dart = "a7bb3f272934e295e547d259781ee971533b457d62a2ba1b703e0ab09f914152"
 
 ANDROID_IMAGE_FILENAME:imx8mm-var-dart = "mx8mm-android-14.0.0_1.0.0-v1.3"
 ANDROID_IMAGE_FOLDER:imx8mm-var-dart = "DART-MX8M-MINI"
