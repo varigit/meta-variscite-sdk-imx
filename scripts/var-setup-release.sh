@@ -50,6 +50,12 @@ if [[ "$DISTRO" == *"fsl-imx"* ]] || [[ "$DISTRO" == *"var-debian-xwayland"* ]];
     # Remove apt package management
     awk -i inplace '!/package-management/' conf/local.conf
 
+    # Enable cve-check
+    echo "" >> conf/local.conf
+    echo '# Enable cve-check' >> conf/local.conf
+    echo 'INHERIT += "cve-check"' >> conf/local.conf
+    echo 'include cve-extra-exclusions.inc' >> conf/local.conf
+
     # Enable buildhistory
     echo "" >> conf/local.conf
     echo '# Enable buildhistory' >> conf/local.conf
