@@ -23,6 +23,8 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 
 QBSP_IMAGE_CONTENT = ""
 
+WKS_FILE:mx8-nxp-bsp = "var-imx-swu-dual-rootfs.wks.in"
+
 # Due to the SWUpdate image will not fit the default NAND size.
 # Removing default ubi creation for this image
 IMAGE_FSTYPES:remove = "multiubi"
