@@ -45,16 +45,6 @@ VAR_RECOVERY_IMAGE_RENAME[imx-boot] = "imx-boot-sd.bin"
 # Use the var-recovery bbclass
 inherit var-recovery
 
-# Install Android files for mx8 machines
-IMAGE_INSTALL:append:mx8-nxp-bsp = " \
-    ${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
-"
-
-# Install Android files for var-som-mx6
-IMAGE_INSTALL:append:var-som-mx6 = " \
-    ${@bb.utils.contains('DISTRO', 'fsl-imx-xwayland', 'var-install-android', '', d)} \
-"
-
 # var-recovery can install to NAND, but it is too big to be installed on NAND
 IMAGE_FSTYPES:remove = "multiubi"
 
