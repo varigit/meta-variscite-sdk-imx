@@ -35,9 +35,9 @@ ANDROID_IMAGE_FILENAME:imx8qxp-var-som = "mx8x-android-13.0.0_1.2.0-v1.0"
 ANDROID_IMAGE_FOLDER:imx8qxp-var-som = "VAR-SOM-MX8X"
 ANDROID_IMAGE_CKSUM:imx8qxp-var-som = "66b0d07ec116e822a8b7ecf16dd016c0c78230476785b896360ad5a3962049e2"
 
-ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8-android-13.0.0_1.2.0-v1.0"
+ANDROID_IMAGE_FILENAME:imx8qm-var-som = "mx8-android-15.0.0_1.2.0-v1.0"
 ANDROID_IMAGE_FOLDER:imx8qm-var-som = "VAR-SOM-MX8"
-ANDROID_IMAGE_CKSUM:imx8qm-var-som = "00144010765f61546c9495c09f2cf9dad5d5e6b605be7470af6f1bb48ed3b70e"
+ANDROID_IMAGE_CKSUM:imx8qm-var-som = "ca95d378be234ecedda8295539f85c2d29aeb4f1df10cbfa36c1e3a19879d204"
 
 INSTALL_ANDROID_SCRIPT = "mx8_install_android.sh"
 INSTALL_ANDROID_SCRIPT:var-som-mx6 = "install_android_emmc.sh"
