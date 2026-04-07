@@ -1,0 +1,21 @@
+# short-description: Create an SD card image with  rootfs partition
+# long-description:
+# Create an image that can be written onto a SD card using dd for use
+# with i.MX SoC family
+# It uses u-boot + other binaries gathered together on imx-boot file
+#
+# The disk layout used is:
+#  - ---------- --------- --------- ----
+# | | imx-boot | rootfs_a| rootfs_b|data|
+#  - ---------- --------- --------- ----
+# ^ ^          ^         ^         ^    ^
+# | |          |         |         |    |
+# 0 |        8MiB    rootfs_a  rootfs_b data
+#   ${IMX_BOOT_SEEK} 32 or 33kiB, see reference manual
+#
+part u-boot --source rawcopy --sourceparams="file=imx-boot" --ondisk mmcblk --no-table --align ${IMX_BOOT_SEEK}
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs_a --align 8192 --extra-space 150M
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs_b --align 8192 --extra-space 150M
+part /data --ondisk mmcblk --fstype=ext4 --label data --size 10M --align 4096 --extra-space 0
+
+bootloader --ptable msdos
