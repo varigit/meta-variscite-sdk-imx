@@ -10,6 +10,9 @@ DEPENDS = "\
     var-uuu-installer \
 "
 
+# Default value if the variable is not set
+VAR_RECOVERY_SD_NAME ?= "var-recovery-image-${MACHINE}"
+
 PACKAGE_RELEASE_NAME = "${VAR_RECOVERY_SD_NAME}"
 
 do_configure[noexec] = "1"
