@@ -8,6 +8,18 @@ PACKAGES = "\
     ${PN}-docker \
     ${PN}-ml \
     ${PN}-security \
+    ${PN}-android \
+"
+
+RDEPENDS:${PN}-android = "\
+    android-tools \
+    android-tools-adbd \
+    android-tools-fstools \
+    e2fsprogs-mke2fs \
+    e2fsprogs-e2fsck \
+    f2fs-tools \
+    util-linux-sfdisk \
+    bash \
 "
 
 RDEPENDS:${PN}-docker = "\
