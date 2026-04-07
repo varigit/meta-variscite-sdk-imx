@@ -47,14 +47,19 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 	   bb.utils.contains('DISTRO_FEATURES',     'x11', 'packagegroup-core-x11-sato-games', \
 							 '', d), d)} \
 "
+CORE_IMAGE_EXTRA_INSTALL:append:var-som-mx6 = "\
+    packagegroup-variscite-imx-android \
+"
 
 CORE_IMAGE_EXTRA_INSTALL:append:mx8-nxp-bsp = "\
     packagegroup-fsl-tools-gpu \
+    packagegroup-variscite-imx-android \
     packagegroup-variscite-swupdate \
 "
 
 CORE_IMAGE_EXTRA_INSTALL:append:mx95-nxp-bsp = "\
     packagegroup-fsl-tools-gpu \
+    packagegroup-variscite-imx-android \
 "
 
 CORE_IMAGE_EXTRA_INSTALL:append:mx9-nxp-bsp = "\
