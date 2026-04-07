@@ -12,7 +12,7 @@ PACKAGES = "\
 
 RDEPENDS:${PN}-docker = "\
     docker-moby \
-    python3-docker-compose \
+    docker-compose \
 "
 
 # Machine Learning package for i.MX8 machines
