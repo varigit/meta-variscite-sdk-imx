@@ -14,8 +14,8 @@
 #   ${IMX_BOOT_SEEK} 32 or 33kiB, see reference manual
 #
 part u-boot --source rawcopy --sourceparams="file=imx-boot" --ondisk mmcblk --no-table --align ${IMX_BOOT_SEEK}
-part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs_a --align 8192 --extra-space 150M
-part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs_b --align 8192 --extra-space 150M
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs1 --align 8192 --extra-space 150M
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs2 --align 8192 --extra-space 150M
 part /data --ondisk mmcblk --fstype=ext4 --label data --size 10M --align 4096 --extra-space 0
 
 bootloader --ptable msdos
