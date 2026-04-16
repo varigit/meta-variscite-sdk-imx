@@ -216,6 +216,7 @@ install_rootfs_to_emmc()
 	if [[ ${BOARD} = "imx8qxp-var-som" ]]; then
 		# Create DTB symlink
 		(cd ${MOUNTDIR}/${BOOTDIR}; ln -fs ${DTB_PREFIX}-wifi.dtb ${DTB_PREFIX}.dtb)
+		(cd ${MOUNTDIR}/${BOOTDIR}; ln -fs ${DTB_PREFIX}-1.x-wifi.dtb ${DTB_PREFIX}-1.x.dtb)
 	fi
 
 	if [[ ${BOARD} = "imx8qm-var-som" ]]; then
