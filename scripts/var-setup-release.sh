@@ -50,11 +50,12 @@ if [[ "$DISTRO" == *"fsl-imx"* ]]; then
     # Remove apt package management
     awk -i inplace '!/package-management/' conf/local.conf
 
-    # Enable cve-check
+    # Enable vex and spx 3.0
     echo "" >> conf/local.conf
-    echo '# Enable cve-check' >> conf/local.conf
-    echo 'INHERIT += "cve-check"' >> conf/local.conf
-    echo 'include cve-extra-exclusions.inc' >> conf/local.conf
+    echo '# Enable vex and spx 3.0' >> conf/local.conf
+    echo 'INHERIT += "vex"' >> conf/local.conf
+    echo 'INHERIT:remove = "create-spdx"' >> conf/local.conf
+    echo 'INHERIT += "create-spdx-3.0"' >> conf/local.conf
 
     # Enable buildhistory
     echo "" >> conf/local.conf
