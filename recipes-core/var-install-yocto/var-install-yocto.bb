@@ -2,9 +2,6 @@ SUMMARY = "Variscite target Yocto install for recovery images."
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-# For historical reasons, scripts are located outside ${PN} directory
-FILESEXTRAPATHS:prepend := "${THISDIR}/../../scripts/var_mk_yocto_sdcard/variscite_scripts:"
-
 INSTALL_SCRIPT:imx6ul-var-dart ?= "mx6ul_mx7_install_yocto.sh"
 INSTALL_SCRIPT:var-som-mx6 ?= "mx6_install_yocto.sh"
 INSTALL_SCRIPT:mx7-nxp-bsp ?= "mx6ul_mx7_install_yocto.sh"
