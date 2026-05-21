@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-. /usr/bin/echos.sh
+. /usr/sbin/echos.sh
 
 readonly TARBALL_BASENAME="rootfs"
 readonly TARBALL_FMT="tar.zst"

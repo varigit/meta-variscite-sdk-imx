@@ -2,7 +2,7 @@
 # Meant to be called by install_emmc.sh
 set -e
 
-. /usr/bin/echos.sh
+. /usr/sbin/echos.sh
 
 readonly TARBALL_BASENAME="rootfs"
 readonly TARBALL_FMT="tar.zst"

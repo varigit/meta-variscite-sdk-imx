@@ -2,7 +2,7 @@
 # Installs Yocto to NAND/eMMC
 set -e
 
-. /usr/bin/echos.sh
+. /usr/sbin/echos.sh
 
 MEDIA=/opt/images/Yocto
 SPL_IMAGE=SPL-nand
@@ -119,7 +119,7 @@ install_rootfs()
 	if [ "$ROOTFS_DEV" != "emmc" ] ; then
 		install_rootfs_to_nand
 	else
-		/usr/bin/install_yocto_emmc.sh ${EMMC_EXTRA_ARGS}
+		/usr/sbin/install_yocto_emmc.sh ${EMMC_EXTRA_ARGS}
 		set_fw_utils_to_sd_on_sd_card
 	fi
 }
@@ -196,7 +196,7 @@ if [ "$BOARD" = "dart" ] ; then
 	if [ "$swupdate" = 1 ] ; then
 		blue_bold_echo "Creating two rootfs partitions"
 	fi
-	/usr/bin/install_yocto_emmc.sh -b dart ${EMMC_EXTRA_ARGS}
+	/usr/sbin/install_yocto_emmc.sh -b dart ${EMMC_EXTRA_ARGS}
 	finish
 fi
 

@@ -478,15 +478,15 @@ function copy_scripts
 	echo
 	echo "Copying scripts"
 
-	cp ${YOCTO_SCRIPTS_PATH}/echos.sh 		${P2_MOUNT_DIR}/usr/bin/
+	cp ${YOCTO_SCRIPTS_PATH}/echos.sh 		${P2_MOUNT_DIR}/usr/sbin/
 
 	if [[ $MACHINE = "imx6ul-var-dart" || $MACHINE = "imx7-var-som" ]]; then
-		cp ${YOCTO_SCRIPTS_PATH}/mx6ul_mx7_install_yocto.sh	${P2_MOUNT_DIR}/usr/bin/install_yocto.sh
+		cp ${YOCTO_SCRIPTS_PATH}/mx6ul_mx7_install_yocto.sh	${P2_MOUNT_DIR}/usr/sbin/install_yocto.sh
 	elif [[ $MACHINE = "var-som-mx6" ]]; then
-		cp ${YOCTO_SCRIPTS_PATH}/mx6_install_yocto.sh		${P2_MOUNT_DIR}/usr/bin/install_yocto.sh
-		cp ${YOCTO_SCRIPTS_PATH}/mx6_install_yocto_emmc.sh	${P2_MOUNT_DIR}/usr/bin/install_yocto_emmc.sh
+		cp ${YOCTO_SCRIPTS_PATH}/mx6_install_yocto.sh		${P2_MOUNT_DIR}/usr/sbin/install_yocto.sh
+		cp ${YOCTO_SCRIPTS_PATH}/mx6_install_yocto_emmc.sh	${P2_MOUNT_DIR}/usr/sbin/install_yocto_emmc.sh
 	else
-		cp ${YOCTO_SCRIPTS_PATH}/mx8_install_yocto.sh	${P2_MOUNT_DIR}/usr/bin/install_yocto.sh
+		cp ${YOCTO_SCRIPTS_PATH}/mx8_install_yocto.sh	${P2_MOUNT_DIR}/usr/sbin/install_yocto.sh
 	fi
 
 	if [ ${HAS_DESKTOP_ICONS} = 1 ]; then

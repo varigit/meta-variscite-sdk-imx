@@ -14,4 +14,4 @@ else
 	fi
 fi
 
-/usr/bin/install_yocto.sh "$EXTRA_PARAM" -r emmc
+/usr/sbin/install_yocto.sh "$EXTRA_PARAM" -r emmc
