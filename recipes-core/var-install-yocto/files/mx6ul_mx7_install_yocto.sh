@@ -220,15 +220,14 @@ delete_emmc()
 	echo
 	blue_underlined_bold_echo "Deleting current partitions"
 
-	for ((i=0; i<=10; i++))
+	umount ${node}${part}* 2>/dev/null || true
+
+	for ((i=0; i<=16; i++))
 	do
 		if [[ -e ${node}${part}${i} ]] ; then
-			dd if=/dev/zero of=${node}${part}${i} bs=1024 count=1024 2> /dev/null || true
+			dd if=/dev/zero of=${node}${part}${i} bs=1M count=1 2> /dev/null || true
 		fi
 	done
-	sync
-
-	((echo d; echo 1; echo d; echo 2; echo d; echo 3; echo d; echo w) | fdisk $node &> /dev/null) || true
 	sync
 
 	dd if=/dev/zero of=$node bs=1M count=4
