@@ -5,8 +5,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 INSTALL_SCRIPT:imx6ul-var-dart ?= "mx6ul_mx7_install_yocto.sh"
 INSTALL_SCRIPT:var-som-mx6 ?= "mx6_install_yocto.sh"
 INSTALL_SCRIPT:mx7-nxp-bsp ?= "mx6ul_mx7_install_yocto.sh"
-INSTALL_SCRIPT:mx8-nxp-bsp ?= "mx8_install_yocto.sh"
-INSTALL_SCRIPT:mx9-nxp-bsp ?= "mx8_install_yocto.sh"
+INSTALL_SCRIPT:mx8-nxp-bsp ?= "imx_v8_install_yocto.sh"
+INSTALL_SCRIPT:mx9-nxp-bsp ?= "imx_v8_install_yocto.sh"
 
 INSTALL_SCRIPT_NAME ?= "install_yocto.sh"
 
