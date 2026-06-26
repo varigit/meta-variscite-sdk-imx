@@ -21,28 +21,30 @@ SRC_URI = "\
     file://imx7-var-som_yocto.desktop \
 "
 
+S = "${UNPACKDIR}"
+
 do_install() {
-    install -Dm 0755 ${WORKDIR}/${INSTALL_SCRIPT} ${D}${sbindir}/${INSTALL_SCRIPT_NAME}
-    install -Dm 0755 ${WORKDIR}/echos.sh ${D}${sbindir}/echos.sh
+    install -Dm 0755 ${S}/${INSTALL_SCRIPT} ${D}${sbindir}/${INSTALL_SCRIPT_NAME}
+    install -Dm 0755 ${S}/echos.sh ${D}${sbindir}/echos.sh
 }
 
 do_install:append:var-som-mx6() {
-    install -Dm 0755 ${WORKDIR}/mx6_install_yocto_emmc.sh ${D}${sbindir}/install_yocto_emmc.sh
+    install -Dm 0755 ${S}/mx6_install_yocto_emmc.sh ${D}${sbindir}/install_yocto_emmc.sh
 }
 
 # Desktop files are just available for old legacy platforms
 do_install:append:mx7-nxp-bsp() {
     install -d ${D}${datadir}/applications
-    install -Dm 0644 ${WORKDIR}/imx7-var-som_yocto.desktop ${D}${datadir}/applications/
+    install -Dm 0644 ${S}/imx7-var-som_yocto.desktop ${D}${datadir}/applications/
 }
 
 do_install:append:imx6ul-var-dart() {
     install -d ${D}${datadir}/applications
-    install -Dm 0755 ${WORKDIR}/imx6ul_install_emmc_smart.sh ${D}${sbindir}/
-    install -Dm 0644 ${WORKDIR}/imx6ul-var-dart_yocto_emmc.desktop ${D}${datadir}/applications/
+    install -Dm 0755 ${S}/imx6ul_install_emmc_smart.sh ${D}${sbindir}/
+    install -Dm 0644 ${S}/imx6ul-var-dart_yocto_emmc.desktop ${D}${datadir}/applications/
     if ${@bb.utils.contains('MACHINE_FEATURES', 'nand-flash', 'true', 'false', d)}; then
-        install -Dm 0644 ${WORKDIR}/imx6ul-var-dart_yocto_nand_sd.desktop ${D}${datadir}/applications/
-        install -Dm 0644 ${WORKDIR}/imx6ul-var-dart_yocto_nand_wifi.desktop ${D}${datadir}/applications/
+        install -Dm 0644 ${S}/imx6ul-var-dart_yocto_nand_sd.desktop ${D}${datadir}/applications/
+        install -Dm 0644 ${S}/imx6ul-var-dart_yocto_nand_wifi.desktop ${D}${datadir}/applications/
     fi
 }
 
