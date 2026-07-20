@@ -6,3 +6,6 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 COMPATIBLE_MACHINE = "(mx8-nxp-bsp|mx9-nxp-bsp)"
 
 inherit var-uuu-installer
+
+VAR_FLASH_IMAGE_NAME ?= "fsl-image-gui"
+VAR_FLASH_IMAGE_NAME:aarch64:imxgpu ?= "fsl-image-gui-chromium"
