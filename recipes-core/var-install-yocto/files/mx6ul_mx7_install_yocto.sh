@@ -441,7 +441,10 @@ elif [[ $SOC == i.MX7D ]] ; then
 fi
 
 CODEC=`detect_codec_chip`
-WIFI_MOD=`detect_wifi_module`
+WIFI_MOD=""
+if [[ $BOARD == "dart6ul" ]] ; then
+	WIFI_MOD=`detect_wifi_module`
+fi
 
 while getopts :b:r:v:mu OPTION;
 do
