@@ -456,7 +456,7 @@ fi
 
 CODEC=`detect_codec_chip`
 WIFI_MOD=""
-if [[ $BOARD == "dart6ul" ]] ; then
+if [[ $BOARD == *6ul* ]] ; then
 	WIFI_MOD=`detect_wifi_module`
 fi
 VARSOMMX7_VER=""
@@ -558,16 +558,12 @@ if [[ $BOARD == *6ul* ]] ; then
 	if [[ $MX6UL_MMC0_DEV == "sd" ]] ; then
 		mx6ul_mmc0_dev="sd-card"
 	elif [[ $MX6UL_MMC0_DEV == "wifi" ]] ; then
-		if [[ $som == "var-dart" ]]; then
-			if [[ $WIFI_MOD == "n/a" ]]; then
-				echo "Error: SOM does not have wifi assembled, but the argument '-v wifi' was passed"
-				usage
-				exit 1
-			else
-				mx6ul_mmc0_dev="wifi-$WIFI_MOD"
-			fi
+		if [[ $WIFI_MOD == "n/a" ]]; then
+			echo "Error: SOM does not have wifi assembled, but the argument '-v wifi' was passed"
+			usage
+			exit 1
 		else
-			mx6ul_mmc0_dev="wifi"
+			mx6ul_mmc0_dev="wifi-$WIFI_MOD"
 		fi
 	fi
 fi
