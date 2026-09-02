@@ -26,7 +26,7 @@ SRC_URI = " \
     file://not-append-system-name-to-lib-name.patch \
     file://wx-config-fix-libdir-for-multilib.patch \
 "
-SRCREV= "5b5ec3804a31a3765d60ff351bbdf79eddb1e1f9"
+SRCREV = "5b5ec3804a31a3765d60ff351bbdf79eddb1e1f9"
 S = "${WORKDIR}/git"
 
 # These can be either 'builtin' or 'sys' and builtin means cloned soures are
