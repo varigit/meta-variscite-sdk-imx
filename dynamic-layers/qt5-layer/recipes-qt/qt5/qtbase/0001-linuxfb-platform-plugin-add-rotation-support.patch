@@ -12,6 +12,8 @@ of 0, 90, 180 or 270:
    export QT_QPA_PLATFORM=linuxfb:fb=/dev/fb0:rotation=90
 or use it in the program launch args
    -platform linuxfb:fb=/dev/fb0:rotation=90
+
+Upstream-Status: Pending
 ---
  .../platforms/linuxfb/qlinuxfbscreen.cpp      | 38 +++++++++++++++++--
  .../platforms/linuxfb/qlinuxfbscreen.h        |  1 +
