@@ -47,7 +47,7 @@ do_install () {
         tar --zstd -xf var-uuu-installer.tar.zst -C ${PN}/yocto/
     fi
 
-    tar -cf - ${PN} | zstd -19 -T0 -f -o ${PACKAGE_RELEASE_NAME}.tar.zst
+    tar -cf - ${PN} | zstd -21 -T0 --ultra -f -o ${PACKAGE_RELEASE_NAME}.tar.zst
 
     install -Dm 0644 ${PACKAGE_RELEASE_NAME}.tar.zst ${DEPLOY_DIR_IMAGE}/${PACKAGE_RELEASE_NAME}.tar.zst
     cd ${DEPLOY_DIR_IMAGE}
