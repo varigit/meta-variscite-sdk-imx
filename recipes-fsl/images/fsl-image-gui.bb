@@ -51,6 +51,9 @@ CORE_IMAGE_EXTRA_INSTALL:append:var-som-mx6 = "\
     packagegroup-variscite-imx-android \
 "
 
+CORE_IMAGE_EXTRA_INSTALL:append:imxgpu2d = " imx-g2d-samples"
+CORE_IMAGE_EXTRA_INSTALL:append:mx93-nxp-bsp = " imx-g2d-samples"
+
 CORE_IMAGE_EXTRA_INSTALL:append:mx8-nxp-bsp = "\
     packagegroup-fsl-tools-gpu \
     packagegroup-variscite-imx-android \
