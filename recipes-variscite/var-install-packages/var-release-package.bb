@@ -4,6 +4,8 @@ image, and a var-recovery-image"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
+inherit deploy
+
 DEPENDS = "\
     tar-native \
     zstd-native \
@@ -47,9 +49,11 @@ do_install () {
         tar --zstd -xf var-uuu-installer.tar.zst -C ${PN}/yocto/
     fi
 
-    tar -cf - ${PN} | zstd -21 -T0 --ultra -f -o ${PACKAGE_RELEASE_NAME}.tar.zst
-
-    install -Dm 0644 ${PACKAGE_RELEASE_NAME}.tar.zst ${DEPLOY_DIR_IMAGE}/${PACKAGE_RELEASE_NAME}.tar.zst
-    cd ${DEPLOY_DIR_IMAGE}
-    ln -sf ${PACKAGE_RELEASE_NAME}.tar.zst ${DEPLOY_DIR_IMAGE}/${PACKAGE_RELEASE_NAME}-${MACHINE}.tar.zst
+    tar -cf - ${PN} | zstd -21 -T0 --ultra -f -o "${B}/${PACKAGE_RELEASE_NAME}.tar.zst"
 }
+
+do_deploy () {
+    install -Dm 0644 "${B}/${PACKAGE_RELEASE_NAME}.tar.zst" "${DEPLOYDIR}/${PACKAGE_RELEASE_NAME}.tar.zst"
+    ln -sf "${PACKAGE_RELEASE_NAME}.tar.zst" "${DEPLOYDIR}/${PACKAGE_RELEASE_NAME}-${MACHINE}.tar.zst"
+}
+addtask deploy after do_install before do_build
